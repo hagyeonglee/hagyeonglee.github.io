@@ -29,20 +29,6 @@ export const pageQuery = graphql`
         title
         description
         language
-        author {
-          name
-          bio {
-            role
-            description
-            thumbnail
-          }
-          social {
-            github
-            linkedIn
-            email
-            CurriculumVitae
-          }
-        }
 
         about {
           timestamps {

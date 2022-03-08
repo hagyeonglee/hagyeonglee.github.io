@@ -34,7 +34,7 @@ function PageHeader({ siteTitle }) {
             </div>
             <div className="trailing-section">
               <Link className="link" to="/about">
-                ReadME
+                About
               </Link>
               <Link className="link" to="/posts">
                 Archives

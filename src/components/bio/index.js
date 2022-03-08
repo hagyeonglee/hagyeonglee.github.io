@@ -46,6 +46,7 @@ function Bio({ author, language = 'ko' }) {
         <Image src={bio.thumbnail} alt="thumbnail" />
       </div>
     </div>
+    
   );
 }
 
