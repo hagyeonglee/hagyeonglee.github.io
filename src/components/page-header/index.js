@@ -34,10 +34,10 @@ function PageHeader({ siteTitle }) {
             </div>
             <div className="trailing-section">
               <Link className="link" to="/about">
-                about
+                ReadME
               </Link>
               <Link className="link" to="/posts">
-                posts
+                Archives
               </Link>
               <PostSearch
                 posts={data.allMarkdownRemark.edges.map(({ node }) => new Post(node, true))}

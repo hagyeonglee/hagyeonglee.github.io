@@ -66,8 +66,7 @@ export const pageQuery = graphql`
             email
             linkedIn
             github
-            koreanResume
-            englishCV
+            CurriculumVitae
           }
         }
       }

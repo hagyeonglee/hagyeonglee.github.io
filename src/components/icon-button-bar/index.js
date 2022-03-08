@@ -8,7 +8,8 @@ import AndroidIcon from '@mui/icons-material/Android';
 import AppleIcon from '@mui/icons-material/Apple';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import PersonIcon from '@mui/icons-material/Person';
 
 import './style.scss';
 
@@ -32,10 +33,12 @@ function IconButtonBar({ links = {} }) {
         return <LinkedInIcon {...props} />;
       // case 'CV':
       //   return <DescriptionIcon {...props} />;
-      case 'koreanResume':
-        return <DescriptionIcon {...props} />;
-      case 'englishCV':
-        return <AttachFileIcon {...props} />;
+      // case 'koreanResume':
+      //   return <DescriptionIcon {...props} />;
+      case 'CurriculumVitae':
+        return <AccountBoxIcon {...props} />;
+      case 'PersonalBlog':
+        return <PersonIcon {...props} />;
       default:
         return <></>;
     }
