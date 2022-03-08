@@ -54,6 +54,9 @@ export const pageQuery = graphql`
               demo
               googlePlay
               appStore
+              instagram
+              file
+              
             }
           }
 
@@ -68,6 +71,9 @@ export const pageQuery = graphql`
               demo
               googlePlay
               appStore
+              file
+              instagram
+
             }
           }
         }

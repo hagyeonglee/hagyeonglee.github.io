@@ -15,7 +15,7 @@ module.exports = {
     bio: {
       role: `AI Researcher`,
       description: ['사람에 가치를 두는', '능동적으로 일하는', '이로운 것을 만드는'],
-      thumbnail: 'blog_profile.png', // Path to the image in the 'asset' folder
+      thumbnail: 'blog_profile_move.gif', // Path to the image in the 'asset' folder
     },
     social: {
       //instagram: `https://www.instagram.com/leee_eeehg/`,
@@ -43,6 +43,9 @@ module.exports = {
           googlePlay: '',
           appStore: '',
           demo: '',
+          instagram: '',
+          file: '',
+
         },
       },
       // ========================================================
@@ -72,6 +75,8 @@ module.exports = {
           googlePlay: '',
           appStore: '',
           demo: '',
+          instagram: '',
+          file: '',
         },
       },
       // ========================================================
@@ -86,6 +91,8 @@ module.exports = {
           post: '',
           github: '',
           demo: '',
+          instagram: '',
+          file: '',
         },
       },
     ],
