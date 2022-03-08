@@ -4,7 +4,7 @@ title: 처음 글을 써본다 :)
 date: '2022-03-02 15:00:00'
 author: 굥
 tags: blog gatsby theme 개츠비 테마
-categories: Blog 
+categories: BLOG 
 ---
 
 ## 👋 소개

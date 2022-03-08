@@ -6,20 +6,20 @@ import { getValueFromLocalStorage, setValueToLocalStorage } from '../../utils/lo
 import './style.scss';
 
 function ThemeSwitch() {
-  const [isDarkMode, setIsDarkMode] = useState(getValueFromLocalStorage('isDarkMode'));
+  const [isLightMode, setIsLightMode] = useState(getValueFromLocalStorage('isLightMode'));
 
   useEffect(() => {
-    setValueToLocalStorage('isDarkMode', isDarkMode);
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
+    setValueToLocalStorage('isLightMode', isLightMode);
+    document.documentElement.setAttribute('data-theme', isLightMode ? 'light' : 'dark');
+  }, [isLightMode]);
 
   return (
     <div className="dark-mode-button-wrapper">
-      <IconButton className="dark-mode-button" onClick={() => setIsDarkMode((isDark) => !isDark)}>
-        {isDarkMode ? (
-          <LightModeIcon className="dark-mode-icon" fontSize="large" />
-        ) : (
+      <IconButton className="dark-mode-button" onClick={() => setIsLightMode((isLight) => !isLight)}>
+        {isLightMode ? (
           <DarkModeIcon className="dark-mode-icon" fontSize="large" />
+        ) : (
+          <LightModeIcon className="dark-mode-icon" fontSize="large" />
         )}
       </IconButton>
     </div>
