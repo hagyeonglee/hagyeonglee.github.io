@@ -23,8 +23,8 @@ module.exports = {
       linkedIn: `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`, // `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`,
       email: `lhky0708@gmail.com`, // `lhky0708@gmail.com`,
       // CV: ``,
-      koreanResume: `/Users/hagyeonglee/Documents/GitHub/hagyeonglee-gatsby-blog/static/CV_hagyeonglee.pdf`,
-      englishCV: `/Users/hagyeonglee/Documents/GitHub/hagyeonglee-gatsby-blog/static/CV_hagyeonglee.pdf`,
+      koreanResume: `/CV_hagyeonglee.pdf`,
+      englishCV: `/CV_hagyeonglee.pdf`,
 
     },
   },
