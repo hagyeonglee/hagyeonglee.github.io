@@ -63,9 +63,11 @@ export const pageQuery = graphql`
             thumbnail
           }
           social {
-            github
-            linkedIn
             email
+            linkedIn
+            github
+            koreanResume
+            englishCV
           }
         }
       }
