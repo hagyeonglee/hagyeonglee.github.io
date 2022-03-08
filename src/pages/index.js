@@ -63,10 +63,11 @@ export const pageQuery = graphql`
             thumbnail
           }
           social {
-            email
-            linkedIn
-            github
             CurriculumVitae
+            github
+            linkedIn
+            email
+            PersonalBlog
           }
         }
       }

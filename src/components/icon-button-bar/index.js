@@ -8,7 +8,7 @@ import AndroidIcon from '@mui/icons-material/Android';
 import AppleIcon from '@mui/icons-material/Apple';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+// import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import PersonIcon from '@mui/icons-material/Person';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
@@ -33,7 +33,7 @@ function IconButtonBar({ links = {} }) {
       case 'linkedIn':
         return <LinkedInIcon {...props} />;
       case 'CurriculumVitae':
-        return <AccountBoxIcon {...props} />;
+        return <DescriptionIcon {...props} />;
       case 'PersonalBlog':
         return <PersonIcon {...props} />;
       case 'instagram':
