@@ -9,14 +9,14 @@ function Utterances({ repo, path }) {
 
   useEffect(() => {
     if (!rootElm.current || isUtterancesLoaded.current) return;
-    const storedIsDarkMode = localStorage.getItem('isDarkMode');
+    const storedIsLightMode = localStorage.getItem('isLightMode');
 
     const utterances = document.createElement('script');
     const utterancesConfig = {
       src,
       repo,
       branch,
-      theme: JSON.parse(storedIsDarkMode) ? 'photon-dark' : 'github-light',
+      theme: JSON.parse(storedIsLightMode) ? 'github-light' : 'photon-dark',
       label: 'comment',
       async: true,
       'issue-term': 'pathname',

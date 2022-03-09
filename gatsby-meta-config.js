@@ -2,7 +2,7 @@ module.exports = {
   title: `Gyoong-learning`,
   description: `배우고 기록하고 성장하자!`,
   language: `ko`, // `ko`, `en` => currently support versions for Korean and English
-  siteUrl: `https://hagyeong-lee.netlify.app/`,
+  siteUrl: `https://hagyeonglee.github.io/`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
   comments: {
     utterances: {
