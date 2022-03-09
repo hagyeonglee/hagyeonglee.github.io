@@ -1,9 +1,9 @@
 ---
 emoji: 📄
 title: Implicit Neural Representations for Image Compression
-date: '2022-03-03 19:00:00'
+date: '2022-03-09 20:00:00'
 author: gyoong
-tags: Paper Review 
+tags: PaperReview 
 categories: PaperReview 
 ---
 # Implicit Neural Representations for Image Compression
@@ -20,7 +20,7 @@ categories: PaperReview
 
 정보 손실없는 compression이 더 desirable하지만 기본 이론적 한계가 존재한다. 샤넌의 엔트로피는 정보를 표현하는데 필요한 최소 평균 자원량을 말하는데, 샤넌은 아무리 좋은 코드를 설계하더라도 평균 길이가 엔트로피 H(X)보다 짧아질 수 없음을 밝혔다.
 
-![스크린샷 2022-01-14 오전 1.44.43.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_1.44.43.png)
+![스크린샷 2022-01-14 오전 1.44.43.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%201.44.43.png)
 
 - Therefore, lossy compression aims at trading off a file’s quality with its size - called rate-distortion trade-off.
 
@@ -169,7 +169,7 @@ categories: PaperReview
         
     - To express a pixel based image tensor x, evaluate the image function on a uniformly spaced coordinate grid p such that x = $I(p)\in R^{W*H*3}$,
         
-        ![스크린샷 2022-01-14 오전 2.54.05.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_2.54.05.png)
+        ![스크린샷 2022-01-14 오전 2.54.05.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%202.54.05.png)
         
 - Rate-distortion Autoencoders
     - An encoder network produces a compressed representation
@@ -243,13 +243,13 @@ categories: PaperReview
 - overfitting to emphasize that the INR is trained to only represent a single image
     - Given an image x and a coordinate grid p, we minimize the objective:
         
-        ![스크린샷 2022-01-14 오전 9.58.36.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_9.58.36.png)
+        ![스크린샷 2022-01-14 오전 9.58.36.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.58.36.png)
         
 - Mean Squared Error (MSE) as the loss function to measure similarity
     
     *$x_{ij}$ is the color vector of a single pixel
     
-    ![스크린샷 2022-01-14 오전 9.59.26.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_9.59.26.png)
+    ![스크린샷 2022-01-14 오전 9.59.26.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.59.26.png)
     
 - Regularization
     
@@ -336,7 +336,7 @@ categories: PaperReview
     - the update $\triangle \theta = \theta - \theta_0$ requires less storage than the full weight tensor $\theta$
     - The decoder can then reconstruct the image by computing:
         
-        ![스크린샷 2022-01-14 오전 10.26.09.png](Implicit%20N%20d2993/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-01-14_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_10.26.09.png)
+        ![스크린샷 2022-01-14 오전 10.26.09.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.26.09.png)
         
         - $\tilde \theta$ 가 의미하는 것 → reconstruct된 weight
         - $\hat x$ 가 의미하는 것 → $\tilde \theta$ 에 의해서 reconstruct된 이미지
@@ -348,7 +348,7 @@ categories: PaperReview
         
         During overfitting we change the objective to:
         
-        ![스크린샷 2022-01-14 오전 10.34.44.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_10.34.44.png)
+        ![스크린샷 2022-01-14 오전 10.34.44.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.34.44.png)
         
         → the regularization term now induces the model weights to stay close to the initialization
         
@@ -358,7 +358,7 @@ categories: PaperReview
         
         (AdaRound와 QAT를 수행하면서 업데이트된 값으로서부터 초기값을 분리해주기 위해 MLP에 있는 모든 선형 레이어에 decomposition 분해를 해준다.)
         
-        ![스크린샷 2022-01-14 오전 10.36.07.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_10.36.07.png)
+        ![스크린샷 2022-01-14 오전 10.36.07.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.36.07.png)
         
         - optimizing the rounding and QAT require the original input-output function of each linear layer
         
@@ -387,7 +387,7 @@ the number of pixels W H of the image
 
 - **PSNR**
 
-![스크린샷 2022-01-18 오후 1.51.23.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_1.51.23.png)
+![스크린샷 2022-01-18 오후 1.51.23.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-18%20%EC%98%A4%ED%9B%84%201.51.23.png)
 
 ### **Baseline**
 
@@ -448,11 +448,11 @@ SOTA RDAE만큼 BPG도 두 데이터셋 모두에서 좋은 성능을 보임
 
 ### 2. Visual Comparison to JPEG and JPEG2000
 
-![meta-learned vs. JPEG vs. JPEG2000 (Kodak)](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-17_%EC%98%A4%ED%9B%84_5.23.46.png)
+![meta-learned vs. JPEG vs. JPEG2000 (Kodak)](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%205.23.46.png)
 
 meta-learned vs. JPEG vs. JPEG2000 (Kodak)
 
-![meta-learned vs. JPEG vs. JPEG2000 (CelebA)](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-17_%EC%98%A4%ED%9B%84_5.23.56.png)
+![meta-learned vs. JPEG vs. JPEG2000 (CelebA)](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%205.23.56.png)
 
 meta-learned vs. JPEG vs. JPEG2000 (CelebA)
 
@@ -474,7 +474,7 @@ JPEG2000이 edge 부분에서 artifact가 보임(배경의 글자 부분)
 
 ### 3. Convergence Speed
 
-![스크린샷 2022-01-17 오후 9.37.42.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-17_%EC%98%A4%ED%9B%84_9.37.42.png)
+![스크린샷 2022-01-17 오후 9.37.42.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%209.37.42.png)
 
 In the beginning of the overfitting
 
