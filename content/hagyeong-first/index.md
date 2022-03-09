@@ -4,7 +4,7 @@ title: 처음 글을 써본다 :)
 date: '2022-03-02 15:00:00'
 author: gyoong
 tags: blog gatsby 
-categories: BLOG 
+categories: MISC 
 ---
 
 ## 소개

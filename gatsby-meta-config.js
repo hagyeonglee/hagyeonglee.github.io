@@ -6,12 +6,12 @@ module.exports = {
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
   comments: {
     utterances: {
-      repo: ``, // `zoomkoding/zoomkoding-gatsby-blog`,
+      repo: `hagyeonglee/comments`, // `zoomkoding/zoomkoding-gatsby-blog`,
     },
   },
   ga: '0', // Google Analytics Tracking ID
   author: {
-    name: `Hagyeonglee`,
+    name: `Hagyeonglee (Gyoong)`,
     bio: {
       role: `AI Researcher`,
       description: ['몰랑한 호기심으로', '말랑하게 사고하는', '꼼꼼하게 기록하는'],
