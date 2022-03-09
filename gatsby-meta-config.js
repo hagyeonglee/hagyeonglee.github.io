@@ -295,7 +295,7 @@ module.exports = {
         },
       },
       {
-        title: 'Ewha Social Start-up & Venture program ; Rockle Proj.',
+        title: 'Ewha Social Start-up & Venture program ; RockleProj. , Rodang Proj.',
         description: 'Content & Communication Application offered to oppertunity for Active Senior(Age 50+ generation) then, reduce depression and role deprivation ',
         techStack: ['Start-up'],
         thumbnailUrl: '',
@@ -304,7 +304,7 @@ module.exports = {
           github: '',
           googlePlay: '',
           appStore: '',
-          demo: '',
+          demo: 'https://youtu.be/H2ozH0vXRQE',
           instagram: '',
           file: 'https://drive.google.com/file/d/1z7OKDq8JlsE9DzyC0he8t4_ZVNfHN_aH/view?usp=sharing',
         },
