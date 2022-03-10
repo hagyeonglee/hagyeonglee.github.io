@@ -378,18 +378,18 @@ $$</p>
 <ul>
 <li>
 <p>Given an image x and a coordinate grid p, we minimize the objective:</p>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.58.36.png" alt="스크린샷 2022-01-14 오전 9.58.36.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.58.36.png" alt=""></p>
 </li>
 </ul>
 </li>
 <li>
 <p>Mean Squared Error (MSE) as the loss function to measure similarity</p>
 <p>*$x_{ij}$ is the color vector of a single pixel</p>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.59.26.png" alt="스크린샷 2022-01-14 오전 9.59.26.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.59.26.png" alt=""></p>
 </li>
 <li>
 <p>Regularization</p>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_10.33.16.png" alt="스크린샷 2022-01-14 오전 10.33.16.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_10.33.16.png" alt=""></p>
 <ul>
 <li>apply L1 regularization to the model weights → 중요한 특성만 남기기위해 정규화</li>
 <li>L1 loss has the property of inducing sparsity</li>
@@ -478,7 +478,7 @@ $$</p>
 </li>
 <li>
 <p>The decoder can then reconstruct the image by computing:</p>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.26.09.png" alt="스크린샷 2022-01-14 오전 10.26.09.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.26.09.png" alt=""></p>
 <ul>
 <li>$\tilde \theta$ 가 의미하는 것 → reconstruct된 weight</li>
 <li>$\hat x$ 가 의미하는 것 → $\tilde \theta$ 에 의해서 reconstruct된 이미지</li>
@@ -496,14 +496,14 @@ $$</p>
 <p>encode only the update $\triangle \theta$</p>
 <p>(변화된 $\theta$만 인코딩해주면됨)</p>
 <p>During overfitting we change the objective to:</p>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.34.44.png" alt="스크린샷 2022-01-14 오전 10.34.44.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.34.44.png" alt=""></p>
 <p>→ the regularization term now induces the model weights to stay close to the initialization</p>
 <p>we directly apply quantization to the update $\triangle \theta$</p>
 </li>
 <li>
 <p>perform AdaRound and QAT, we apply a decomposition to all linear layers in the MLP to separate initial values from the update</p>
 <p>(AdaRound와 QAT를 수행하면서 업데이트된 값으로서부터 초기값을 분리해주기 위해 MLP에 있는 모든 선형 레이어에 decomposition 분해를 해준다.)</p>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.36.07.png" alt="스크린샷 2022-01-14 오전 10.36.07.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.36.07.png" alt=""></p>
 <ul>
 <li>optimizing the rounding and QAT require the original input-output function of each linear layer</li>
 </ul>
@@ -527,12 +527,12 @@ $$</p>
 <ul>
 <li><strong>bitrate</strong></li>
 </ul>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_1.50.15.png" alt="스크린샷 2022-01-18 오후 1.50.15.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_1.50.15.png" alt=""></p>
 <p>the number of pixels W H of the image</p>
 <ul>
 <li><strong>PSNR</strong></li>
 </ul>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-18%20%EC%98%A4%ED%9B%84%201.51.23.png" alt="스크린샷 2022-01-18 오후 1.51.23.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-18%20%EC%98%A4%ED%9B%84%201.51.23.png" alt=""></p>
 <h3 id="baseline" style="position:relative;"><a href="#baseline" aria-label="baseline permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Baseline</strong></h3>
 <ul>
 <li>Traditional codecs : JPEG, JPEG2000, BPG</li>
@@ -596,14 +596,14 @@ Theory to Applications – Workshop (ICLR), 2021.</p>
 <p>JPEG2000이 edge 부분에서 artifact가 보임(배경의 글자 부분)</p>
 <p>얼굴 영역에서 밝은 부분에서 어두운 부분으로 더 smooth → more natural tonal transition (자연스럽게 톤이 변화됨)</p>
 <h3 id="3-convergence-speed" style="position:relative;"><a href="#3-convergence-speed" aria-label="3 convergence speed permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. Convergence Speed</h3>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%209.37.42.png" alt="스크린샷 2022-01-17 오후 9.37.42.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%209.37.42.png" alt=""></p>
 <p>In the beginning of the overfitting</p>
 <p>overfitting이 시작될 때에는 meta-learned가 가장 빨리 수렴되었음.</p>
 <p>meta의 첫번째 3epoch는 basic의 50epoch보다 좋은 결과</p>
 <p>각 모델의 최종 성능에 가까워질수록 수렴속도가 느려지지만 meta-learned 방식은 이점을 유지</p>
 <p>: It achieves the same performance after 2500(meta-learned) epochs as the basic approach after 25000(basic) epochs → 학습  속도를 90% 단축해서, 빠르게 할 수 있음</p>
 <h3 id="4-number-of-layers-and-hidden-dimension" style="position:relative;"><a href="#4-number-of-layers-and-hidden-dimension" aria-label="4 number of layers and hidden dimension permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. Number of Layers and Hidden Dimension</h3>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%EC%A0%84_12.07.46.png" alt="*hl = hidden layer"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%EC%A0%84_12.07.46.png" alt=""></p>
 <p>*hl = hidden layer</p>
 <p>MLP의 depth, width 둘 다 직접적으로 파라미터 수에, 간접적으로 bitrate에 영향을 준다.</p>
 <p>→ network를 scaling up하는 방법이 2가지 있음</p>
@@ -613,7 +613,7 @@ Theory to Applications – Workshop (ICLR), 2021.</p>
 <p>quantization noise는 더 심해지고 depth가 깊어질수록 noise는 증폭되어지고 performance를 제한한다.</p>
 <p>rate-distortion performance scale은 model의 width와 더 많은 관련이 있다고 결론을 내렸다.</p>
 <h3 id="5-choosing-input-encoding-and-activation" style="position:relative;"><a href="#5-choosing-input-encoding-and-activation" aria-label="5 choosing input encoding and activation permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5. Choosing Input Encoding and Activation</h3>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%EC%A0%84_1.01.38.png" alt="스크린샷 2022-01-18 오전 1.01.38.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%EC%A0%84_1.01.38.png" alt=""></p>
 <p><a href="https://www.notion.so/Positional-Encoding-ad46de11a7974e36a5e43f7892886d4d">Positional Encoding</a></p>
 <p>Gaussian encoding Model이랑 비교</p>
 <p>hidden dimension과 같은 숫자의 frequency를 사용 (L=M, $\sigma$=4)</p>
@@ -622,10 +622,10 @@ Theory to Applications – Workshop (ICLR), 2021.</p>
 <p>Best input encoding은 두 activation에서 모두 Gaussian을 넘어서는 positional encoding이다.</p>
 <p>SIREN 구조에서 ReLU보다 좋았지만 input encoding을 사용하는 모델의 성능에는 미치지 못했다.</p>
 <h3 id="6-impact-of-l1-regularization" style="position:relative;"><a href="#6-impact-of-l1-regularization" aria-label="6 impact of l1 regularization permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>6. Impact of L1 Regularization</h3>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_2.39.51.png" alt="스크린샷 2022-01-18 오후 2.39.51.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_2.39.51.png" alt=""></p>
 <p>L1 Regularization → 엔트로피 감소를 도와주지만 적절한 rate-distortion trade off을 위해서는 architecture의 size를 수정해야하는 문제랑 같이 생각해야한다.</p>
 <h3 id="7-ㅊpost-quantization-optimization" style="position:relative;"><a href="#7-%E3%85%8Apost-quantization-optimization" aria-label="7 ㅊpost quantization optimization permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>7. ㅊPost-Quantization Optimization</h3>
-<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_2.40.15.png" alt="스크린샷 2022-01-18 오후 2.40.15.png"></p>
+<p><img src="./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_2.40.15.png" alt=""></p>
 <p>AdaRound 와 retraining이 도입되면서 성능이 더 나아짐</p>
 <p>bitrate range 전체에서 가장 좋은 방법은 method들을 결합해서 함께 적용시키는 것이다.</p>
 <h1 id="conclusion" style="position:relative;"><a href="#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h1>
