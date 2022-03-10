@@ -62,7 +62,7 @@ Claude shannon이 정보의 정량화를 시도하면서 확립된 이론이다.
 
 ![](./imagebundle/InformationTheory-03.jpg)
 # Shannon's 1st theorem (Source coding Theory) 
-:bear:  한 줄 요약 : 아무리 좋은 코드를 설계하더라도 평균 길이가 엔트로피 H(X)보다 짧아질 수 없다
+1️⃣ 한 줄 요약 : 아무리 좋은 코드를 설계하더라도 평균 길이가 엔트로피 H(X)보다 짧아질 수 없다
 ![](./imagebundle/InformationTheory-04.jpg)
 ## Prefix Rule
 주어진 code가 instantaneous code(순간 코드)인지 아닌지를 확인할 수 있는 방법이다. code 중에 있는 어느 code여도 다른 code의 앞부분에 위치하는 Prefix가 되지 않으면 그 code가  instantaneous이다.
@@ -83,7 +83,7 @@ Claude shannon이 정보의 정량화를 시도하면서 확립된 이론이다.
     
     상호정보량는 X에 대한 불확실한 정도인 엔트로피 H(X)에서 Y가 주어진 경우 X에 대한 불확실한 정도 H(X|Y)를 뺀 정보량에 해당
 
-:bear:  한 줄 요약 : 주어진 channel에서 상호정보량을 최대화할 수 있는 방법
+1️⃣  한 줄 요약 : 주어진 channel에서 상호정보량을 최대화할 수 있는 방법
 
 - 송신자가 보낸 코드 X가 수신자에게 Y라는 코드로 전달되는 통신에서 채널을 통한 실제 통신과정에서는 정보의 손실과 왜곡이 불가피하게 일어난다. 
 - 채널에서 일어나는 정보전달의 불완전성은 송·수신 코드 사이의 확률적 관계 p(y|x)로 표현
