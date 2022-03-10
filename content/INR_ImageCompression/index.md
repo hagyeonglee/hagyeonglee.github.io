@@ -8,7 +8,6 @@ categories: PaperReview
 ---
 # Implicit Neural Representations for Image Compression
 
-
 ## Introduction
 
 - preserves all the information (lossless compression)
