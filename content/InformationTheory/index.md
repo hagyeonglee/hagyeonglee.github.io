@@ -75,10 +75,12 @@ Claude shannon이 정보의 정량화를 시도하면서 확립된 이론이다.
 ## Channel을 통한 정보 전송
 ![](./imagebundle/InformationTheory-07.jpg)
 ![](./imagebundle/InformationTheory-08.jpg)
-# Shannon's 2nd theorem (Channel Coding Theorem)
+## Shannon's 2nd theorem (Channel Coding Theorem)
 - 상호정보량(mutual information, I(X;Y)) : 채널로 입력되는 정보량 중에 실제 채널의 출력까지 전달되는 정보량 
 
      ![](./imagebundle/Inform1.png)
+
+
      ![](./imagebundle/Inform2.png)
     
     상호정보량는 X에 대한 불확실한 정도인 엔트로피 H(X)에서 Y가 주어진 경우 X에 대한 불확실한 정도 H(X|Y)를 뺀 정보량에 해당
@@ -122,3 +124,6 @@ Claude shannon이 정보의 정량화를 시도하면서 확립된 이론이다.
 - [link 1](https://adventuresinmachinelearning.com/cross-entropy-kl-divergence/)
 - [link 2](https://hoya012.github.io/blog/cross_entropy_vs_kl_divergence/)
 - [coding theory](https://blog.naver.com/ptm0228/221788016714)
+
+ ```toc
+```

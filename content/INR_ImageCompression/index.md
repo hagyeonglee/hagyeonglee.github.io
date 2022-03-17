@@ -9,7 +9,6 @@ categories: PaperReview
 # Implicit Neural Representations for Image Compression
 
 ## Introduction
-
 - preserves all the information (lossless compression)
 - sacrifices some information for even smaller file sizes (lossy compression)
 
@@ -19,7 +18,7 @@ categories: PaperReview
 
 정보 손실없는 compression이 더 desirable하지만 기본 이론적 한계가 존재한다. 샤넌의 엔트로피는 정보를 표현하는데 필요한 최소 평균 자원량을 말하는데, 샤넌은 아무리 좋은 코드를 설계하더라도 평균 길이가 엔트로피 H(X)보다 짧아질 수 없음을 밝혔다.
 
-![스크린샷 2022-01-14 오전 1.44.43.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%201.44.43.png)
+![](./imagebundle/1.png)
 
 - Therefore, lossy compression aims at trading off a file’s quality with its size - called rate-distortion trade-off.
 
@@ -155,20 +154,18 @@ categories: PaperReview
 
 - INRs
     - store coordinate-based data by representing data as a continuous function
-    from coordinates to values
-    - EX) x, y 좌표를 갖는 이미지 좌표$(p_x,p_y)$를 RGB와 같은 color space를 갖는 color vector와 매핑 :
+    from coordinates to values 
+    - EX) x, y 좌표를 갖는 이미지 좌표 <img src="https://latex.codecogs.com/gif.latex?\bg{white}(p_x,p_y)"> 를 RGB와 같은 color space를 갖는 color vector와 매핑 :
         
-        $$
-        I :(p_x, p_y) \rightarrow (R,G,B)
-        $$
+        <img src="https://latex.codecogs.com/gif.latex?\bg{white}I:(p_x, p_y) \rightarrow (R,G,B)">
         
     - This mapping can be approximated by a neural network $f_\theta$, typically a Multi Layer Perceptron (MLP) with parameters $\theta$
         
-        ![스크린샷 2022-01-14 오전 2.47.29.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_2.47.29.png)
+        ![2](./imagebundle/2.png)
         
     - To express a pixel based image tensor x, evaluate the image function on a uniformly spaced coordinate grid p such that x = $I(p)\in R^{W*H*3}$,
         
-        ![스크린샷 2022-01-14 오전 2.54.05.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%202.54.05.png)
+        ![3](./imagebundle/3.png)
         
 - Rate-distortion Autoencoders
     - An encoder network produces a compressed representation
@@ -186,7 +183,7 @@ categories: PaperReview
 - encoding process ⇒ training the INR
 - decoding process ⇒ loading a set of weights into the network and evaluating on a coordinate grid
     
-    ![스크린샷 2022-01-14 오전 3.03.49.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_3.03.49.png)
+    ![4](./imagebundle/4.png)
     
     only need to store $\theta ^*$ to reconstruct a distorted version of the original image x
     
@@ -219,7 +216,7 @@ categories: PaperReview
             
             * L : the number of frequencies used
             
-            ![스크린샷 2022-01-14 오전 3.12.50.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_3.12.50.png)
+            ![5](./imagebundle/5.png)
             
             → [Section] Choosing Input Encoding and Activation
             
@@ -232,7 +229,7 @@ categories: PaperReview
     ![Untitled](./imagebundle/Untitled.png)
     
 
-![스크린샷 2022-01-14 오전 3.16.02.png](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_3.16.02.png)
+![6](./imagebundle/6.png)
 
 ### **1) based on randomly initialized INRs**
 
@@ -242,17 +239,17 @@ categories: PaperReview
 - overfitting to emphasize that the INR is trained to only represent a single image
     - Given an image x and a coordinate grid p, we minimize the objective:
         
-        ![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.58.36.png)
+        ![7](./imagebundle/7.png)
         
 - Mean Squared Error (MSE) as the loss function to measure similarity
     
     *$x_{ij}$ is the color vector of a single pixel
     
-    ![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%209.59.26.png)
+    ![8](./imagebundle/8.png)
     
 - Regularization
     
-    ![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-14_%EC%98%A4%EC%A0%84_10.33.16.png)
+    ![9](./imagebundle/9.png)
     
     - apply L1 regularization to the model weights → 중요한 특성만 남기기위해 정규화
     - L1 loss has the property of inducing sparsity
@@ -335,7 +332,7 @@ categories: PaperReview
     - the update $\triangle \theta = \theta - \theta_0$ requires less storage than the full weight tensor $\theta$
     - The decoder can then reconstruct the image by computing:
         
-        ![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.26.09.png)
+        ![10](./imagebundle/10.png)
         
         - $\tilde \theta$ 가 의미하는 것 → reconstruct된 weight
         - $\hat x$ 가 의미하는 것 → $\tilde \theta$ 에 의해서 reconstruct된 이미지
@@ -347,7 +344,7 @@ categories: PaperReview
         
         During overfitting we change the objective to:
         
-        ![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.34.44.png)
+        ![11](./imagebundle/11.png)
         
         → the regularization term now induces the model weights to stay close to the initialization
         
@@ -357,7 +354,7 @@ categories: PaperReview
         
         (AdaRound와 QAT를 수행하면서 업데이트된 값으로서부터 초기값을 분리해주기 위해 MLP에 있는 모든 선형 레이어에 decomposition 분해를 해준다.)
         
-        ![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-14%20%EC%98%A4%EC%A0%84%2010.36.07.png)
+        ![22](./imagebundle/22.png)
         
         - optimizing the rounding and QAT require the original input-output function of each linear layer
         
@@ -380,13 +377,13 @@ categories: PaperReview
 
 - **bitrate**
 
-![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_1.50.15.png)
+![13](./imagebundle/13.png)
 
 the number of pixels W H of the image
 
 - **PSNR**
 
-![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-18%20%EC%98%A4%ED%9B%84%201.51.23.png)
+![20](./imagebundle/20.png)
 
 ### **Baseline**
 
@@ -414,19 +411,19 @@ Theory to Applications – Workshop (ICLR), 2021.
 - CelebA → L=12
 - M : the number of hidden units per layer,
     - the width of the MLP → to evaluate performance at different rate-distortion operating points
-    - CelebA : M $\in$ {24,32,48,64}
-    - Kodak : M $\in$ {32,48,64,128}
+    - CelebA : M $\in$ {24,32,48,64} 
+    - Kodak : M $\in$ {32,48,64,128} 
 - optimal bitwidth
     - basic : b=8
     - meta-learned : b=7
 
 ### 1. Comparison with State-of-the-Art
 
-![Kodak dataset](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-17_%EC%98%A4%ED%9B%84_5.10.01.png)
+![Kodak dataset](./imagebundle/kodak.png)
 
 Kodak dataset
 
-![CelebA dataset](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-17_%EC%98%A4%ED%9B%84_5.10.35.png)
+![CelebA dataset](./imagebundle/celeba.png)
 
 CelebA dataset
 
@@ -447,11 +444,11 @@ SOTA RDAE만큼 BPG도 두 데이터셋 모두에서 좋은 성능을 보임
 
 ### 2. Visual Comparison to JPEG and JPEG2000
 
-![meta-learned vs. JPEG vs. JPEG2000 (Kodak)](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%205.23.46.png)
+![meta-learned vs. JPEG vs. JPEG2000 (Kodak) 14](./imagebundle/14.png)
 
 meta-learned vs. JPEG vs. JPEG2000 (Kodak)
 
-![meta-learned vs. JPEG vs. JPEG2000 (CelebA)](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%205.23.56.png)
+![meta-learned vs. JPEG vs. JPEG2000 (CelebA) 15](./imagebundle/15.png)
 
 meta-learned vs. JPEG vs. JPEG2000 (CelebA)
 
@@ -473,7 +470,7 @@ JPEG2000이 edge 부분에서 artifact가 보임(배경의 글자 부분)
 
 ### 3. Convergence Speed
 
-![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-01-17%20%EC%98%A4%ED%9B%84%209.37.42.png)
+![16](./imagebundle/16.png)
 
 In the beginning of the overfitting
 
@@ -487,7 +484,7 @@ meta의 첫번째 3epoch는 basic의 50epoch보다 좋은 결과
 
 ### 4. Number of Layers and Hidden Dimension
 
-![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%EC%A0%84_12.07.46.png)
+![17](./imagebundle/17.png)
 
 *hl = hidden layer
 
@@ -507,15 +504,16 @@ rate-distortion performance scale은 model의 width와 더 많은 관련이 있�
 
 ### 5. Choosing Input Encoding and Activation
 
-![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%EC%A0%84_1.01.38.png)
+![18](./imagebundle/18.png)
 
 [Positional Encoding](https://www.notion.so/Positional-Encoding-ad46de11a7974e36a5e43f7892886d4d)
 
 Gaussian encoding Model이랑 비교
 
-hidden dimension과 같은 숫자의 frequency를 사용 (L=M, $\sigma$=4)
 
-random initialization(regularization parameter $\lambda = 10 ^ {-6}$)부터 시작해서 Kodak dataset에 hidden dimension($M \in$ {32,48,64,96, 128})이랑 input encoding을 다르게 해서 training 을 시킴.
+hidden dimension과 같은 숫자의 frequency를 사용
+
+random initialization(regularization parameter <img src="https://latex.codecogs.com/svg.image?\bg{white}\lambda=10^{-6}">)부터 시작해서 Kodak dataset에 hidden dimension($M \in$ {32,48,64,96, 128})이랑 input encoding을 다르게 해서 training 을 시킴. 
 
 높은 bitrate에서 sine이 ReLU를 넘어서는 것을 볼 수 있다. 
 
@@ -525,13 +523,13 @@ SIREN 구조에서 ReLU보다 좋았지만 input encoding을 사용하는 모델
 
 ### 6. Impact of L1 Regularization
 
-![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_2.39.51.png)
+![19](./imagebundle/19.png)
 
 L1 Regularization → 엔트로피 감소를 도와주지만 적절한 rate-distortion trade off을 위해서는 architecture의 size를 수정해야하는 문제랑 같이 생각해야한다.
 
-### 7. ㅊPost-Quantization Optimization
+### 7. Post-Quantization Optimization
 
-![](./imagebundle/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2022-01-18_%EC%98%A4%ED%9B%84_2.40.15.png)
+![21](./imagebundle/21.png)
 
 AdaRound 와 retraining이 도입되면서 성능이 더 나아짐
 
@@ -554,3 +552,5 @@ bitrate range 전체에서 가장 좋은 방법은 method들을 결합해서 함
 - highlight the importance of the architecture and input encodings for INR-based compression (ReLU vs. sine)
 - `clear limitation → the scaling of INRs to higher bitrates (show less competitive performance at higher bitrates)`
 
+```toc
+```
