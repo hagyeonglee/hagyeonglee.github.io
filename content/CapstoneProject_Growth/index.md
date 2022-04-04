@@ -1,6 +1,6 @@
 ---
 emoji: 📝
-title: Capstone Project(Growth);MeIN
+title: Growth Capstone Project
 date: '2021-12-27 20:00:00'
 author: gyoong
 tags: Project
