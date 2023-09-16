@@ -2,7 +2,7 @@
 emoji: 📝
 title: Information Theory
 date: '2022-03-10 20:00:00'
-author: gyoong
+author: hagyeong
 tags: Compression Basic
 categories: Compression Basic
 ---

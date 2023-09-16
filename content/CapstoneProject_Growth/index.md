@@ -2,7 +2,7 @@
 emoji: 📝
 title: Growth Capstone Project
 date: '2021-12-27 20:00:00'
-author: gyoong
+author: hagyeong
 tags: Project
 categories: Project
 ---

@@ -2,7 +2,7 @@
 emoji: 📄
 title: CIPS;Image Generators with Conditionally-Independent Pixel Synthesis
 date: '2022-03-15 20:00:00'
-author: gyoong
+author: hagyeong
 tags: PaperReview Generation
 categories: PaperReview Generation
 ---

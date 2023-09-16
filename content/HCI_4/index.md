@@ -2,7 +2,7 @@
 emoji: 📝
 title: 4장:사용성의원리
 date: '2021-10-29 20:00:00'
-author: gyoong
+author: hagyeong
 tags: HCI
 categories: HCI Interaction
 ---

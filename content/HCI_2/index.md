@@ -2,7 +2,7 @@
 emoji: 📝
 title: 2장:상호작용
 date: '2021-10-10 20:00:00'
-author: gyoong
+author: hagyeong
 tags: HCI
 categories: HCI Interaction
 ---

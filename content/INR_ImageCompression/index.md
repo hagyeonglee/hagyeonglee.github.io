@@ -2,7 +2,7 @@
 emoji: 📄
 title: Implicit Neural Representations for Image Compression
 date: '2022-03-09 20:00:00'
-author: gyoong
+author: hagyeong
 tags: PaperReview Compression
 categories: PaperReview Compression
 ---

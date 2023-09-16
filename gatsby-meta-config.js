@@ -1,7 +1,7 @@
 module.exports = {
-  title: `Gyoong-learning`,
+  title: `Hagyeong-`,
   description: `배우고 기록하고 성장하자!`,
-  language: `ko`, // `ko`, `en` => currently support versions for Korean and English
+  language: `en`, // `ko`, `en` => currently support versions for Korean and English
   siteUrl: `https://hagyeonglee.github.io/`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
   comments: {
@@ -9,21 +9,21 @@ module.exports = {
       repo: `hagyeonglee/comments`, // `zoomkoding/zoomkoding-gatsby-blog`,
     },
   },
-  ga: '0', // Google Analytics Tracking ID
+  ga: 'G-Z1P475ZSBN', // Google Analytics Tracking ID
   author: {
-    name: `Hagyeonglee (Gyoong)`,
+    name: `Hagyeong Lee`,
     bio: {
-      role: `AI Researcher`,
-      description: ['몰랑한 호기심으로', '말랑하게 사고하는', '꼼꼼하게 기록하는'],
-      thumbnail: 'blog_profile_move.gif', // Path to the image in the 'asset' folder
+      role: `AI Traveler`,
+      description: ['몰랑한 호기심을 가진', '말랑하게 사고하는', '꼼꼼하게 성장하는'],
+      thumbnail: 'github_profile.png', // Path to the image in the 'asset' folder
     },
     social: {
-      //instagram: `https://www.instagram.com/leee_eeehg/`,
+      instagram: `https://www.instagram.com/leee_eeehg/`,
       github: `https://github.com/hagyeonglee`, // `https://github.com/hagyeonglee`,
       linkedIn: `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`, // `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`,
-      email: `lhky0708@gmail.com`, // `lhky0708@gmail.com`,
+      email: `hagyeonglee@postech.ac.kr`, // `lhky0708@gmail.com`,
       CurriculumVitae: `/CV_hagyeonglee.pdf`,
-      PersonalBlog: `https://blog.naver.com/lhky0708`,
+      PersonalBlog: `https://blog.naver.com/hagyng`,
     },
   },
 
@@ -50,7 +50,17 @@ module.exports = {
       // ========================================================
       //
       {
-        date: '2022. 01 ~ ',
+        date: '2022. 09 ~ ',
+        activity: 'M.S. Candidate Student @POSTECH EffL Lab.',
+        links: {
+          post: 'https://effl.postech.ac.kr/',
+          github: '',
+          demo: '',
+          file: '',
+        },
+      },
+      {
+        date: '2022. 01 ~ 02',
         activity: 'POSTECH E.E. Winter Research Intern',
         links: {
           post: '',
@@ -131,7 +141,7 @@ module.exports = {
       },
       {
         date: '',
-        activity: '배우고 기록하는 블로그 시작',
+        activity: 'Start !',
         links: {
           post: '',
           github: 'https://github.com/hagyeonglee/hagyeonglee-gatsby-blog',

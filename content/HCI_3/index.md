@@ -2,7 +2,7 @@
 emoji: 📝
 title: 3장:유용성의 원리
 date: '2021-10-11 20:00:00'
-author: gyoong
+author: hagyeong
 tags: HCI
 categories: HCI Interaction
 ---

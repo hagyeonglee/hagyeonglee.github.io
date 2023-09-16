@@ -2,7 +2,7 @@
 emoji: 📝
 title: 1장:HCI와UX
 date: '2021-10-01 20:00:00'
-author: gyoong
+author: hagyeong
 tags: HCI
 categories: HCI Interaction
 ---

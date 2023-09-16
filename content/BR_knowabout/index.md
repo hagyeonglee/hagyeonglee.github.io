@@ -2,7 +2,7 @@
 emoji: 📚
 title: 대학원생 때 알면 좋을 것들에 대하여
 date: '2022-03-08 19:00:00'
-author: gyoong
+author: hagyeong
 tags: Book MISC
 categories: Book MISC
 ---

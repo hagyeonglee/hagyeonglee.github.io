@@ -2,7 +2,7 @@
 emoji: 🌟
 title: WomenTechStars2022 - Rising Stars
 date: '2022-02-25 19:00:00'
-author: gyoong
+author: hagyeong
 tags: MISC
 categories: MISC
 ---

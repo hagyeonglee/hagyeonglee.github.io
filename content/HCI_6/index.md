@@ -2,7 +2,7 @@
 emoji: 📝
 title: 6장:사용자분석
 date: '2021-11-16 20:00:00'
-author: gyoong
+author: hagyeong
 tags: HCI
 categories: HCI Interaction
 ---
