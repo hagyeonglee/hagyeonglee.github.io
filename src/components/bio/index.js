@@ -46,7 +46,9 @@ function Bio({ author, language = 'ko' }) {
         </div>
       )}
       <div className="thumbnail-wrapper">
+
         <Image src={bio.thumbnail} alt="thumbnail" />
+
       </div>
 
     </div>

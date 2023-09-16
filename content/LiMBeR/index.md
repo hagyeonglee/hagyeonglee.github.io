@@ -6,22 +6,22 @@ author: hagyeong
 tags: PaperReview Multi-Modal
 categories: PaperReview Multi-Modal
 ---
+## EffL LAB. Regular Seminar 
+
 # Linearly Mapping from Image to Text Space (ICLR'23)
 
-### EffL LAB. Regular Seminar 
-
-![](/content/LiMBeR/imagebundle/LiMBeR_01.png)
+![](./imagebundle/LiMBeR_01.png)
 
 
-**Problem of Language Model**
-![](/content/LiMBeR/imagebundle/LiMBeR_02.png)
+## Problem of Language Model 
+![](./imagebundle/LiMBeR_02.png)
 
 Emily M. Bender and Alexander Koller., “Climbing towards NLU: on meaning form and understanding in the age of data”, ACL 2020
 
 A System exposed only to form in its training cannot in principle learn meaning
 
-**Form & Meaning in Language** 
-![](/content/LiMBeR/imagebundle/LiMBeR_03.png)
+##Form & Meaning in Language** 
+![](./imagebundle/LiMBeR_03.png)
 Form 
 
 - Anything we can find in a language (e.g., symbols, mouth movements)
@@ -33,33 +33,33 @@ Meaning
 
 Is **form** alone **meaningful?** 
 
-**Octopus Thought exp.**
-![](/content/LiMBeR/imagebundle/LiMBeR_04.png)
+## Octopus Thought exp.
+![](./imagebundle/LiMBeR_04.png)
 A highly intelligent octopus that knows nothing about Human language
 
 - Excellent at spotting *statistical* patterns
 
 - Observed the use of certain words in similar **forms**
 - Maybe noticed a common lexical pattern
-![](/content/LiMBeR/imagebundle/LiMBeR_05.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_06.png)
+![](./imagebundle/LiMBeR_05.png)
+![](./imagebundle/LiMBeR_06.png)
 starts impersonating B and replying to A
-![](/content/LiMBeR/imagebundle/LiMBeR_07.png)
+![](./imagebundle/LiMBeR_07.png)
 **The octopus doesn't know the referents of the words **no idea what bears or sticks are**
 - => **Octopus = LM**
 
-**Octopus Thought Experiment - Conclusion**
-![](/content/LiMBeR/imagebundle/LiMBeR_08.png)
+## Octopus Thought Experiment - Conclusion
+![](./imagebundle/LiMBeR_08.png)
 - LMs do not tend to learn conceptual representations (meanings) of language.
 - Humans acquire language not only through the **form** (representation) 
 
 but also through the **interaction** of various factors in physical world.
 
-***How well can a text-only language model learn aspects of the physical world?***
+***How well can a text-only language model learn aspects of the physical world?**
 
 
-**Previous Works**
-![](/content/LiMBeR/imagebundle/LiMBeR_09.png)
+## Previous Works
+![](./imagebundle/LiMBeR_09.png)
 - Show success in mapping images to language model soft prompts as a method for multimodal pre-training (e.g., *MAGMA*, *Frozen*)
     - Constantin Eichenberg et al., “MAGMA–Multi modal Augmentation of Generative Models through Adapter-based Finetuning”, EMNLP 2022
 
@@ -67,8 +67,8 @@ but also through the **interaction** of various factors in physical world.
 
 - However, no attempts to restrict the mechanism behind this mapping and understand how it works.
 
-**Language & Image representation**
-![](/content/LiMBeR/imagebundle/LiMBeR_10.png)
+## Language & Image representation
+![](./imagebundle/LiMBeR_10.png)
 - **Hypothesis.**
 
 Conceptual representations (between language and image embeddings) can be approximately mapped to one through a linear transformation
@@ -77,8 +77,8 @@ Conceptual representations (between language and image embeddings) can be approx
 - because of the simplicity !
 
 
-**Method**
-![](/content/LiMBeR/imagebundle/LiMBeR_11.png)
+## Method
+![](./imagebundle/LiMBeR_11.png)
 LiMBeR (Linearly Mapping Between Representation spaces)
 
 - Train linear projections from image representations into the text space of a language model to produce image-to-text tasks
@@ -87,24 +87,24 @@ LiMBeR (Linearly Mapping Between Representation spaces)
 
 (do not correspond to discrete language tokens)
 
-![](/content/LiMBeR/imagebundle/LiMBeR_12.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_13.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_14.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_15.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_16.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_17.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_18.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_19.png)
-**Experiments : Captioning**
-![](/content/LiMBeR/imagebundle/LiMBeR_20.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_21.png)
-**Experiments : VQA (Visual Question Answering)**
-![](/content/LiMBeR/imagebundle/LiMBeR_22.png)
-![](/content/LiMBeR/imagebundle/LiMBeR_23.png)
-**Experiments : Visual Concepts**
-![](/content/LiMBeR/imagebundle/LiMBeR_24.png)
+![](./imagebundle/LiMBeR_12.png)
+![](./imagebundle/LiMBeR_13.png)
+![](./imagebundle/LiMBeR_14.png)
+![](./imagebundle/LiMBeR_15.png)
+![](./imagebundle/LiMBeR_16.png)
+![](./imagebundle/LiMBeR_17.png)
+![](./imagebundle/LiMBeR_18.png)
+![](./imagebundle/LiMBeR_19.png)
+## Experiments : Captioning
+![](./imagebundle/LiMBeR_20.png)
+![](./imagebundle/LiMBeR_21.png)
+## Experiments : VQA (Visual Question Answering)
+![](./imagebundle/LiMBeR_22.png)
+![](./imagebundle/LiMBeR_23.png)
+## Experiments : Visual Concepts
+![](./imagebundle/LiMBeR_24.png)
 **Why BEIT prompts perform so poorly for VQA despite performing decently for captioning?**
-![](/content/LiMBeR/imagebundle/LiMBeR_25.png)
+![](./imagebundle/LiMBeR_25.png)
 
 - **Hypothesis.** BEIT does not encode visual info. that corresponds to lexical categories
 - Metrics
@@ -113,8 +113,8 @@ LiMBeR (Linearly Mapping Between Representation spaces)
 - Measure **how close** a word was to the correct answer
 
 
-**Conclusion**
-![](/content/LiMBeR/imagebundle/LiMBeR_26.png)
+## Conclusion
+![](./imagebundle/LiMBeR_26.png)
 - Show the linguistic supervision of the vision model pretraining objective correlates with the degree of similarity
   - Verified a hypothesis : training only a linear layer is enough for mapping visual pre-trained knowledge to text space.
   - And it can enable downstream tasks (such as few/zero-shot VQA, image captioning) utilizing stored knowledge from both worlds
@@ -124,3 +124,6 @@ LiMBeR (Linearly Mapping Between Representation spaces)
 (e.g. larger or smaller CLIP models or supervised resnets or BEITs)
 
 - whether the probing results get better or worse with image encoder size 
+
+```toc
+```
