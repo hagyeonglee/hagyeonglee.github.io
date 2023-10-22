@@ -11,11 +11,11 @@ module.exports = {
   },
   ga: 'G-Z1P475ZSBN', // Google Analytics Tracking ID
   author: {
-    name: `Hagyeong Lee`,
+    name: 'Hagyeong Lee',
     bio: {
       role: `AI Traveler`,
       description: ['몰랑한 호기심을 가진', '말랑하게 사고하는', '꼼꼼하게 성장하는'],
-      thumbnail: '/github_profile.png', // Path to the image in the 'asset' folder
+      thumbnail: `blog_profile_move_fall.gif`, // Path to the image in the 'asset' folder
     },
     social: {
       instagram: `https://www.instagram.com/leee_eeehg/`,
