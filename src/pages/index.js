@@ -64,10 +64,11 @@ export const pageQuery = graphql`
           }
           social {
             CurriculumVitae
-            github
             linkedIn
-            email
+            github
+            instagram
             PersonalBlog
+            email
           }
         }
       }
