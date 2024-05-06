@@ -1,5 +1,5 @@
 <h1 align="center">
-  Gyoong-learning
+  Hagyeong-Log
 </h1>
 
 <p align="center">
@@ -11,7 +11,7 @@
 </p>
 
 ## 👋 Introduction and Ambition ✨
-- This is my Gatsby Blog named [**Gyoong-learning**](https://hagyeonglee.github.io). 
+- This is my Gatsby Blog named [**Hagyeong-Log**](https://hagyeonglee.github.io). 
 - 🧗‍♀️ With a record that I want to draw a good growth narrative, I will run this blog so that it can contain stories that I learn, fail, and grow well in the future.🙌 
 - I used the existing technology blog to scribble on my own, but I completed the ideal development blog that I drew little by little through Gatsby. 
 - I will continue to write paper reviews, make book reports, and record various things I studied and failed experiences.⛱️ 
