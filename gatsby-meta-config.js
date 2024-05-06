@@ -1,5 +1,5 @@
 module.exports = {
-  title: `Hagyeong-`,
+  title: `Hagyeong-Log`,
   description: `배우고 기록하고 성장하자!`,
   language: `en`, // `ko`, `en` => currently support versions for Korean and English
   siteUrl: `https://hagyeonglee.github.io/`,
@@ -15,14 +15,14 @@ module.exports = {
     bio: {
       role: `AI Traveler`,
       description: ['몰랑한 호기심을 가진', '말랑하게 사고하는', '꼼꼼하게 성장하는'],
-      thumbnail: `blog_profile_move_fall.gif`, // Path to the image in the 'asset' folder
+      thumbnail: `blog_profile_taiwan.jpeg`, // Path to the image in the 'asset' folder
     },
     social: {
       instagram: `https://www.instagram.com/leee_eeehg/`,
       github: `https://github.com/hagyeonglee`, // `https://github.com/hagyeonglee`,
       linkedIn: `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`, // `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`,
       email: `hagyeonglee@postech.ac.kr`, // `lhky0708@gmail.com`,
-      CurriculumVitae: `/CV_hagyeonglee.pdf`,
+      CurriculumVitae: `/Ha_gyeong_Lee.pdf`,
       PersonalBlog: `https://blog.naver.com/hagyng`,
     },
   },
@@ -50,11 +50,21 @@ module.exports = {
       // ========================================================
       //
       {
+        date: '2024. 05. 02 ',
+        activity: 'A new text-guided image compression algorithm, TACO is Accepted at ICML 2024!!',
+        links: {
+          post: 'https://arxiv.org/abs/2403.02944',
+          github: '',
+          demo: '',
+          file: '',
+        },
+      },
+      {
         date: '2022. 09 ~ ',
         activity: 'M.S. Candidate Student @POSTECH EffL Lab.',
         links: {
           post: 'https://effl.postech.ac.kr/',
-          github: '',
+          github: 'https://github.com/effl-lab',
           demo: '',
           file: '',
         },
@@ -101,7 +111,7 @@ module.exports = {
       },
       {
         date: '2020. 09 ~ 2020. 12',
-        activity: '연세 세브란스 병원 Center for Clinical Imaging Data Science(CCIDS) Research Intern',
+        activity: 'Yonsei Severance Hospital Center for Clinical Imaging Data Science(CCIDS) Research Intern',
         links: {
           post: '',
           github: '',
@@ -113,7 +123,7 @@ module.exports = {
         date: '2020.07 ~ 2020.08',
         activity: 'Ewha GraphicsLAB Research Intern',
         links: {
-          post: '',
+          post: 'http://graphics.ewha.ac.kr/',
           github: '',
           demo: '',
           file: 'https://drive.google.com/file/d/10V59AvDk_J3MDY6hd3ym8mXNjp4LN2d6/view?usp=sharing',
@@ -136,7 +146,7 @@ module.exports = {
           post: '',
           github: '',
           demo: '',
-          file: '/CV_hagyeonglee.pdf',
+          file: '/Ha_gyeong_Lee.pdf',
         },
       },
       {
