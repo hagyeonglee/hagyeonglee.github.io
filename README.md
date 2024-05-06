@@ -1,5 +1,5 @@
 <h1 align="center">
-  Gyoong-learning
+  Hagyeong-Log
 </h1>
 
 <p align="center">
