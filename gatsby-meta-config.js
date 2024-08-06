@@ -22,7 +22,7 @@ module.exports = {
       github: `https://github.com/hagyeonglee`, // `https://github.com/hagyeonglee`,
       linkedIn: `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`, // `https://www.linkedin.com/in/hagyeong-lee-1b342520b/`,
       email: `hagyeonglee@postech.ac.kr`, // `lhky0708@gmail.com`,
-      CurriculumVitae: `/Ha_gyeong_Lee.pdf`,
+      CurriculumVitae: `/CV_Hagyeong_Lee.pdf`,
       PersonalBlog: `https://blog.naver.com/hagyng`,
     },
   },
