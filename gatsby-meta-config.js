@@ -14,8 +14,8 @@ module.exports = {
     name: 'Hagyeong Lee',
     bio: {
       role: `AI Traveler`,
-      description: ['몰랑한 호기심을 가진', '말랑하게 사고하는', '꼼꼼하게 성장하는'],
-      thumbnail: `blog_profile_taiwan.jpeg`, // Path to the image in the 'asset' folder
+      description: ['말랑하게 사고하는', '꼼꼼하게 성장하는', ''],
+      thumbnail: `blog_profile_icml.jpeg`, //`blog_profile_taiwan.jpeg`, // Path to the image in the 'asset' folder
     },
     social: {
       instagram: `https://www.instagram.com/leee_eeehg/`,
@@ -60,8 +60,8 @@ module.exports = {
         },
       },
       {
-        date: '2022. 09 ~ ',
-        activity: 'M.S. Candidate Student @POSTECH EffL Lab.',
+        date: '2022. 09 ~ 2024.08',
+        activity: 'M.S. Student @POSTECH EffL Lab.',
         links: {
           post: 'https://effl.postech.ac.kr/',
           github: 'https://github.com/effl-lab',
@@ -70,7 +70,7 @@ module.exports = {
         },
       },
       {
-        date: '2022. 01 ~ 02',
+        date: '2022. 01 ~ 2022. 02',
         activity: 'POSTECH E.E. Winter Research Intern',
         links: {
           post: '',
@@ -130,34 +130,24 @@ module.exports = {
         },
       },
       {
-        date: '2018.03 ~',
+        date: '2018.03 ~ 2022. 08',
         activity: 'Ewha Womans University',
         links: {
           post: '',
           github: '',
           demo: '',
-          file: '/CV_hagyeonglee.pdf',
+          file: '',
         },
       },
-      {
-        date: '2018.03 ~',
-        activity: 'Curriculum Vitae :)',
-        links: {
-          post: '',
-          github: '',
-          demo: '',
-          file: '/Ha_gyeong_Lee.pdf',
-        },
-      },
-      {
-        date: '',
-        activity: 'Start !',
-        links: {
-          post: '',
-          github: 'https://github.com/hagyeonglee/hagyeonglee-gatsby-blog',
-          demo: 'https://hagyeong-lee.netlify.app/',
-        },
-      },
+      // {
+      //   date: '',
+      //   activity: 'Start !',
+      //   links: {
+      //     post: '',
+      //     github: 'https://github.com/hagyeonglee/hagyeonglee-gatsby-blog',
+      //     demo: 'https://hagyeong-lee.netlify.app/',
+      //   },
+      // },
     ],
 
     projects: [

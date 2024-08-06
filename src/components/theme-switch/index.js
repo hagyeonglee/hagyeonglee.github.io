@@ -10,18 +10,18 @@ function ThemeSwitch() {
 
   useEffect(() => {
     setValueToLocalStorage('isLightMode', isLightMode);
-    document.documentElement.setAttribute('data-theme', isLightMode ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', isLightMode ? 'light' : 'light'); //'dark');
   }, [isLightMode]);
 
   return (
     <div className="dark-mode-button-wrapper">
-      <IconButton className="dark-mode-button" onClick={() => setIsLightMode((isLight) => !isLight)}>
+      {/* <IconButton className="dark-mode-button" onClick={() => setIsLightMode((isLight) => !isLight)}>
         {isLightMode ? (
           <DarkModeIcon className="dark-mode-icon" fontSize="large" />
         ) : (
           <LightModeIcon className="dark-mode-icon" fontSize="large" />
         )}
-      </IconButton>
+      </IconButton> */}
     </div>
   );
 }
