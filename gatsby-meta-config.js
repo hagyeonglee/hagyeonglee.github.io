@@ -14,7 +14,7 @@ module.exports = {
     name: 'Hagyeong Lee',
     bio: {
       role: `AI Traveler`,
-      description: ['말랑하게 사고하는', '꼼꼼하게 성장하는', ''],
+      description: ['말랑하게 사고하는', '꼼꼼하게 성장하는', '호기심 가득한'],
       thumbnail: `blog_profile_icml.jpeg`, //`blog_profile_taiwan.jpeg`, // Path to the image in the 'asset' folder
     },
     social: {
