@@ -1,5 +1,5 @@
 <h1 align="center">
-  Gyoong-learning
+  Hagyeong-Log
 </h1>
 
 <p align="center">
@@ -13,7 +13,7 @@
 ### > English Version [**English README.md**](https://github.com/hagyeonglee/hagyeonglee.github.io/blob/master/README.en.md)
 
 ## 👋 소개이자 포부 ✨
-### [**Gyoong-learning**](https://hagyeonglee.github.io) 라고 이름을 지은 저의 Gatsby 기술 블로그 입니다. 
+### [**Hagyeong-Log**](https://hagyeonglee.github.io) 라고 이름을 지은 저의 Gatsby 기술 블로그 입니다. 
 - 🧗‍♀️ 성장서사를 잘 그려나가고 싶은 기록으로, 이 블로그가 앞으로 제가 배우고 실패도, 성장도 하는 스토리를 잘 담을 수 있는 공간이 되도록 운영해보겠습니다.🙌 
 - 기존 기술 블로그를 혼자서 노션에 끄적이는 용도로 사용했는데 조금씩 그려봤던 이상적인 개발 블로그를 Gatsby를 통해 완성하게 되었습니다.
 - 앞으로 paper review도 쓰고, book report도 한 번 만들어보고, 여러 공부했던 점들, 삽질⛱️ 도 꾸준히 기록해 나가보겠습니다😛 종종 들려서 구경해주세요 😃  
