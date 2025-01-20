@@ -4,19 +4,19 @@ import IconButtonBar from '../icon-button-bar';
 import Image from '../image';
 import './style.scss';
 
-function Bio({ author, language = 'ko' }) {
+function Bio({ author, language = 'en' }) {
   if (!author) return null;
   const { bio, social, name } = author;
   return (
     <div className="bio">
-      {language === 'ko' ? (
+      {language === 'en' ? (
         <div className="introduction korean">
           <p className="title">
-            안녕하세요.
+            Hi 🙌 I am {bio.role}
             <br />
             <ReactRotatingText items={bio.description} />
             <br />
-            {bio.role} <strong>{name}</strong>입니다.
+            <strong>{name}</strong>.
             <br />
           </p>
           <div className="social-links">

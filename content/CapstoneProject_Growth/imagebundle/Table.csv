@@ -1,0 +1,5 @@
+﻿Module,Tags
+Transformer(변환),"None, TPS"
+Feature Extraction(특성 추출),"RCNN, ResNet, VGG"
+Seqeunce(시퀀스),"BiLSTM, None"
+Prediction(예측),"Attention, CTC"
