@@ -58,7 +58,8 @@ module.exports = {
         lang: `en`,
         display: `standalone`,
         start_url: `/`,
-        icon: `static/favicon.png`,
+        icon: `assets/blog_profile_taiwan.jpeg`,
+        // icon: `static/favicon.png`,
       },
     },
     {

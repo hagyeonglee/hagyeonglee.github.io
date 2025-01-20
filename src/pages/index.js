@@ -18,7 +18,7 @@ function HomePage({ data }) {
 
   return (
     <Layout>
-      <Seo title="Home" />
+      <Seo title="hagyeonglee" />
       <Bio author={author} language={language} />
       <PostTabs
         posts={posts}
@@ -63,9 +63,12 @@ export const pageQuery = graphql`
             thumbnail
           }
           social {
+            CurriculumVitae
             github
             linkedIn
             email
+            instagram
+            PersonalBlog
           }
         }
       }

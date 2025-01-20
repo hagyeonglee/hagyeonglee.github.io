@@ -13,8 +13,8 @@ module.exports = {
   author: {
     name: 'Hagyeong Lee',
     bio: {
-      role: `AI Traveler who`,
-      description: ['thinks Creatively', 'grows Meticulously'],//['말랑하게 사고하는', '꼼꼼하게 성장하는', ''],
+      role: `AI Traveler 🗺️`,
+      description: [' thinks Creatively', ' grows Meticulously'],//['말랑하게 사고하는', '꼼꼼하게 성장하는', ''],
       thumbnail: `blog_profile_taiwan.jpeg`, //`blog_profile_taiwan.jpeg`, // Path to the image in the 'asset' folder
     },
     social: {
@@ -49,16 +49,16 @@ module.exports = {
       // ========================================================
       // ========================================================
       //
-      {
-        date: '2025. 01 ~ ',
-        activity: 'New Start @KBSI',
-        links: {
-          post: 'https://www.kbsi.re.kr/',
-          github: '',
-          demo: '',
-          file: '',
-        },
-      },
+      // {
+      //   date: '2025. 01 ~ ',
+      //   activity: 'New Start @KBSI',
+      //   links: {
+      //     post: 'https://www.kbsi.re.kr/',
+      //     github: '',
+      //     demo: '',
+      //     file: '',
+      //   },
+      // },
       {
         date: '2024. 05. 02 ',
         activity: 'A new text-guided image compression algorithm, TACO is Accepted at ICML 2024!!',
