@@ -1,0 +1,1187 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 4.25.7"/><meta data-react-helmet="true" property="og:title" content="Implicit Neural Representations for Image Compression"/><meta data-react-helmet="true" property="og:site_title" content="Implicit Neural Representations for Image Compression"/><meta data-react-helmet="true" name="description" content="Implicit Neural Representations for Image Compression Introduction preserves all the information (lossless compression) sacrifices some information for even smaller file sizes (lossy compression) 정보를 모두 보존하는 방향으로의 compression 또는 조금의 정보는 손실이 있어도 파일 크기를 더 줄이는 방향으로의 compression이 존재한다. —&gt; fundamental theoretical limit (Shannon’s entropy) 정보 손실없는 compression이 더 desirable하지만 기본 이론적 한계가 존재한다. 샤넌의 엔트로피는 정보를 표현하는데 필요한 최소 평균 자원량을 말하는데, 샤넌은 아무리 좋은 코드를 설계하더라도 평균 길이가 엔트로피 H(X)보다 짧아질 수 없음을 밝혔다.  Therefore, l…"/><meta data-react-helmet="true" property="og:description" content="Implicit Neural Representations for Image Compression Introduction preserves all the information (lossless compression) sacrifices some information for even smaller file sizes (lossy compression) 정보를 모두 보존하는 방향으로의 compression 또는 조금의 정보는 손실이 있어도 파일 크기를 더 줄이는 방향으로의 compression이 존재한다. —&gt; fundamental theoretical limit (Shannon’s entropy) 정보 손실없는 compression이 더 desirable하지만 기본 이론적 한계가 존재한다. 샤넌의 엔트로피는 정보를 표현하는데 필요한 최소 평균 자원량을 말하는데, 샤넌은 아무리 좋은 코드를 설계하더라도 평균 길이가 엔트로피 H(X)보다 짧아질 수 없음을 밝혔다.  Therefore, l…"/><meta data-react-helmet="true" property="og:author" content="Hagyeong Lee"/><meta data-react-helmet="true" property="og:image" content="/og-image.png"/><meta data-react-helmet="true" property="og:type" content="website"/><style data-href="/styles.403d7a8a431a9dbd54c6.css" data-identity="gatsby-global-css">@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-8d7d79679b70dbe27172b6460e7a7910.woff2) format("woff2"),url(/static/montserrat-latin-100-ec38980a9e0119a379e2a9b3dbb1901a.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-e279051046ba1286706adc886cf1c96b.woff2) format("woff2"),url(/static/montserrat-latin-100italic-3b325a3173c8207435cd1b76e19bf501.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-9d266fbbfa6cab7009bd56003b1eeb67.woff2) format("woff2"),url(/static/montserrat-latin-200-2d8ba08717110d27122e54c34b8a5798.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-6e5b3756583bb2263eb062eae992735e.woff2) format("woff2"),url(/static/montserrat-latin-200italic-a0d6f343e4b536c582926255367a57da.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-00b3e893aab5a8fd632d6342eb72551a.woff2) format("woff2"),url(/static/montserrat-latin-300-ea303695ceab35f17e7d062f30e0173b.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-56f34ea368f6aedf89583d444bbcb227.woff2) format("woff2"),url(/static/montserrat-latin-300italic-54b0bf2c8c4c12ffafd803be2466a790.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-b71748ae4f80ec8c014def4c5fa8688b.woff2) format("woff2"),url(/static/montserrat-latin-400-0659a9f4e90db5cf51b50d005bff1e41.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-6eed6b4cbb809c6efc7aa7ddad6dbe3e.woff2) format("woff2"),url(/static/montserrat-latin-400italic-7583622cfde30ae49086d18447ab28e7.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-091b209546e16313fd4f4fc36090c757.woff2) format("woff2"),url(/static/montserrat-latin-500-edd311588712a96bbf435fad264fff62.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-c90ced68b46050061d1a41842d6dfb43.woff2) format("woff2"),url(/static/montserrat-latin-500italic-5146cbfe02b1deea5dffea27a5f2f998.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-0480d2f8a71f38db8633b84d8722e0c2.woff2) format("woff2"),url(/static/montserrat-latin-600-b77863a375260a05dd13f86a1cee598f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-cf46ffb11f3a60d7df0567f8851a1d00.woff2) format("woff2"),url(/static/montserrat-latin-600italic-c4fcfeeb057724724097167e57bd7801.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-7dbcc8a5ea2289d83f657c25b4be6193.woff2) format("woff2"),url(/static/montserrat-latin-700-99271a835e1cae8c76ef8bba99a8cc4e.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-c41ad6bdb4bd504a843d546d0a47958d.woff2) format("woff2"),url(/static/montserrat-latin-700italic-6779372f04095051c62ed36bc1dcc142.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-db9a3e0ba7eaea32e5f55328ace6cf23.woff2) format("woff2"),url(/static/montserrat-latin-800-4e3c615967a2360f5db87d2f0fd2456f.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-bf45bfa14805969eda318973947bc42b.woff2) format("woff2"),url(/static/montserrat-latin-800italic-fe82abb0bcede51bf724254878e0c374.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-e66c7edc609e24bacbb705175669d814.woff2) format("woff2"),url(/static/montserrat-latin-900-8211f418baeb8ec880b80ba3c682f957.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-4454c775e48152c1a72510ceed3603e2.woff2) format("woff2"),url(/static/montserrat-latin-900italic-efcaa0f6a82ee0640b83a0916e6e8d68.woff) format("woff")}.search-input-wrapper{align-items:center;display:none;margin-top:3px;width:180px}@media(min-width:768px){.search-input-wrapper{display:flex}}.search-icon{color:var(--primary-text-color);margin-right:2px}.search-input{height:100%;width:100%}.search-input .MuiAutocomplete-inputRoot{padding-right:0!important}.search-input .MuiInputBase-input{color:var(--primary-text-color)!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:16px;font-weight:500;padding-bottom:2px!important}.search-input .MuiInput-underline:before{border-bottom-color:var(--primary-text-color);border-bottom-width:1px}.search-input .MuiInput-underline:after{border-bottom-color:var(--primary-text-color)}.page-header-wrapper{display:flex;height:60px;justify-content:center;width:100%}.page-header-wrapper .page-header{align-items:center;display:flex;justify-content:space-between;max-width:720px;width:100%}.page-header-wrapper .page-header .link{color:var(--primary-text-color);font-size:17px;font-weight:700}@media(min-width:768px){.page-header-wrapper .page-header .link{font-size:20px;font-weight:700}}.page-header-wrapper .page-header .trailing-section{align-items:center;display:flex}.page-header-wrapper .page-header .trailing-section .link{margin-right:10px}@media(min-width:768px){.page-header-wrapper .page-header .trailing-section .link{margin-right:20px}}.page-footer-wrapper{align-items:center;display:flex;height:62px;justify-content:center;margin-top:auto;width:100%}.page-footer-wrapper .page-footer{max-width:720px;text-align:center;width:100%}.page-footer-wrapper .page-footer .link{color:var(--primary-text-color);font-size:20px;font-weight:700;margin-right:20px}.page-footer-wrapper .page-footer a{color:#3a95ff}.dark-mode-button-wrapper{align-items:center;bottom:20px;display:flex;justify-content:center;position:fixed;right:20px}.dark-mode-button{-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);background-color:#363f47!important;border-radius:50px;box-shadow:0 5px 25px rgba(0,0,0,.12);cursor:pointer;height:50px;width:50px;z-index:3}.dark-mode-icon{color:#fff}a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{border:0;font-size:100%;font:inherit;margin:0;padding:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:"";content:none}table{border-collapse:collapse;border-spacing:0}a{outline:none;text-decoration:none}html{--background-color:#fff;--primary-text-color:#000;--secondary-text-color:#9e9e9e;--content-text-color:#37352f;--button-background-color:#f3f3f4;--button-text-color:#363f47;--tab-text-color:#6e6d7a;--tab-hover-text-color:#0d0c22;--tab-selected-background-color:rgba(13,12,34,.05);--bio-link-icon-color:rgba(0,0,0,.54);--about-link-icon-color:#a8a8a8;--chip-background-color:#f3f3f4;--link-text-color:rgba(55,53,47,.7);--post-card-border-color:rgba(0,0,0,.12);--markdown-table-even-cell-background-color:#f6f8fa;--markdown-table-border-color:#dfe2e5;--markdown-blockquote-border-color:#dfe2e5;--markdown-border-color:#e1e4e8}html[data-theme=dark]{--background-color:#232326;--primary-text-color:#e6e6e6;--secondary-text-color:#768390;--content-text-color:#e6e6e6;--button-background-color:#444c56;--button-text-color:#363f47;--tab-text-color:#768390;--tab-hover-text-color:#acbac7;--tab-selected-background-color:#373e47;--chip-background-color:#323a42;--bio-link-icon-color:#e6e6e6;--about-link-icon-color:#a8a8a8;--link-text-color:#90b0ec;--post-card-border-color:#363f47;--markdown-table-even-cell-background-color:#2d333b;--markdown-table-border-color:#444c56;--markdown-blockquote-border-color:#4f5864;--markdown-border-color:#e1e4e8}*{-webkit-appearance:none;appearance:none;box-sizing:border-box}html{font-size:14px;height:100%;overflow-y:scroll;width:100%}body{background-color:var(--background-color)!important}a{color:var(--link-text-color)}.page-wrapper{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--primary-text-color);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;justify-content:center;min-height:100vh;padding-left:15px;padding-right:15px;word-break:keep-all}.page-wrapper,.page-wrapper .page-content{align-items:center;display:flex;flex-direction:column;width:100%}.page-wrapper .page-content{max-width:720px}.icon{color:var(--about-link-icon-color);font-size:20px}.social-links .icon{color:var(--bio-link-icon-color);font-size:30px}@-webkit-keyframes blinking-cursor{0%{opacity:0}50%{opacity:1}to{opacity:0}}@keyframes blinking-cursor{0%{opacity:0}50%{opacity:1}to{opacity:0}}.bio{color:var(--primary-text-color);display:flex;flex-direction:column;justify-content:space-between;margin-bottom:120px;margin-top:120px;width:100%}@media(min-width:768px){.bio{align-items:center;flex-direction:row}}.bio .introduction{display:flex;flex-direction:column;word-break:keep-all}.bio .introduction .react-rotating-text-cursor{-webkit-animation:blinking-cursor .8s cubic-bezier(.68,.01,.01,.99) 0s infinite;animation:blinking-cursor .8s cubic-bezier(.68,.01,.01,.99) 0s infinite}.bio .introduction strong{display:inline-block;font-weight:600}.bio .introduction.korean{font-size:32px;font-weight:100;line-height:1.2}.bio .introduction.korean .title .react-rotating-text-cursor{font-size:35px;line-height:35px}@media(min-width:768px){.bio .introduction.korean{font-size:40px}.bio .introduction.korean .title .react-rotating-text-cursor{font-size:45px;line-height:45px}}.bio .introduction.english{font-family:montserrat;font-size:25px;line-height:1.2}@media(min-width:768px){.bio .introduction.english{font-size:45px}}.bio .introduction.english .name{font-size:35px;font-weight:600}.bio .introduction.english .job{font-size:35px}.bio .introduction.english .description{font-size:20px;font-weight:200;margin-top:8px}.bio .introduction.english .social-links{display:flex;margin-top:20px}.bio .thumbnail-wrapper{display:none}@media(min-width:768px){.bio .thumbnail-wrapper{display:block}}.section-header-wrapper{display:flex;justify-content:center;margin-bottom:32px;width:100%}.section-header-wrapper .section-header{border-bottom:4px solid var(--primary-text-color);color:var(--primary-text-color);font-size:30px;font-weight:700;padding-bottom:5px}.timestamp-section{align-items:center;display:flex;flex-direction:column;justify-content:center;margin-bottom:50px;width:100%;word-break:keep-all}.timestamp-section .body{padding:0 10px;width:100%}.timestamp-section .body .timestamp{border-left:2px solid #bdbdbd;display:flex;font-size:18px;font-weight:400;justify-items:center;margin-left:5px;padding:10px 0;width:100%}.timestamp-section .body .timestamp:first-child{padding-top:7px}.timestamp-section .body .timestamp:last-child{padding-bottom:7px}.timestamp-section .body .timestamp:before{align-self:center;background-color:var(--background-color);border:2px solid #828282;border-radius:10px;content:"";height:10px;left:-1px;position:relative;-webkit-transform:translatex(-50%);transform:translatex(-50%);width:10px}.timestamp-section .body .timestamp .date{align-self:center;color:#828282;margin-left:5px;margin-right:5px;min-width:115px;width:115px}@media(min-width:768px){.timestamp-section .body .timestamp .date{min-width:200px;width:200px}}.timestamp-section .body .timestamp .activity{line-height:23px;width:100%}.project-section{align-items:center;justify-content:center}.project-section,.project-section .project{display:flex;flex-direction:column;width:100%}.project-section .project{margin-bottom:30px;padding:15px}.project-section .project .head{font-size:20px;font-weight:700;line-height:30px;margin-bottom:10px}.project-section .project .body{display:flex;flex-direction:column;width:100%}.project-section .project .body .thumbnail{margin-bottom:10px;width:100%}.project-section .project .body .tech-stack{display:flex;margin-bottom:10px}.project-section .project .body .tech-stack .tech{background-color:var(--chip-background-color);border-radius:10px;font-size:15px;font-weight:500;margin-right:5px;padding:5px 7px}.project-section .project .body .description{font-size:16px;font-weight:400;line-height:1.4}@media(min-width:768px){.project-section .project .body{flex-direction:column}.project-section .project .body .content{margin-top:0}}.post-header{border-bottom:1px solid var(--post-card-border-color);display:flex;flex-direction:column;justify-content:center;margin-bottom:40px;margin-top:20px;padding-bottom:10px;width:100%;word-break:keep-all}.post-header .emoji{font-size:78px;margin-bottom:20px}.post-header .categories{margin-bottom:5px}.post-header .categories .category{color:var(--primary-text-color);font-weight:600;margin-right:4px}.post-header .categories .category:hover{text-decoration:underline}.post-header .title{color:var(--primary-text-color);font-size:32px;font-weight:600;line-height:1.3;margin-bottom:6px}.post-header .info{color:var(--secondary-text-color);display:flex;flex-wrap:wrap;font-size:16px;font-weight:500;line-height:1.5;width:100%}.post-header .info .author{margin-right:4px}.post-header .info strong{color:var(--primary-text-color);font-weight:600}.post-navigator{-webkit-column-gap:1.4%;column-gap:1.4%;display:grid;grid-template-columns:49.3% 49.3%;width:100%}.post-navigator .post-card{border:1px solid var(--post-card-border-color);border-radius:6px;color:var(--primary-text-color);cursor:pointer;display:flex;flex-direction:column;padding:15px;transition:-webkit-transform .2s;transition:transform .2s;transition:transform .2s,-webkit-transform .2s;width:100%}.post-navigator .post-card:hover .title{text-decoration:underline}.post-navigator .post-card.prev{margin-right:auto}.post-navigator .post-card.next{margin-left:auto}.post-navigator .post-card .direction{color:gray;font-size:14px;font-weight:500;margin-bottom:5px}.post-navigator .post-card .title{font-size:16px;font-weight:600;line-height:1.4;margin-bottom:7px}.markdown .octicon{fill:currentColor;display:inline-block;vertical-align:text-bottom}.markdown .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown .anchor:focus{outline:none}.markdown h1 .octicon-link,.markdown h2 .octicon-link,.markdown h3 .octicon-link,.markdown h4 .octicon-link,.markdown h5 .octicon-link,.markdown h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown h1:hover .anchor,.markdown h2:hover .anchor,.markdown h3:hover .anchor,.markdown h4:hover .anchor,.markdown h5:hover .anchor,.markdown h6:hover .anchor{text-decoration:none}.markdown h1:hover .anchor .octicon-link,.markdown h2:hover .anchor .octicon-link,.markdown h3:hover .anchor .octicon-link,.markdown h4:hover .anchor .octicon-link,.markdown h5:hover .anchor .octicon-link,.markdown h6:hover .anchor .octicon-link{visibility:visible}.markdown h1:hover .anchor .octicon-link:before,.markdown h2:hover .anchor .octicon-link:before,.markdown h3:hover .anchor .octicon-link:before,.markdown h4:hover .anchor .octicon-link:before,.markdown h5:hover .anchor .octicon-link:before,.markdown h6:hover .anchor .octicon-link:before{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' aria-hidden='true' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'/%3E%3C/svg%3E");content:" ";display:inline-block;height:16px;width:16px}.markdown{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;word-wrap:break-word;color:var(--content-text-color);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:16px;font-weight:500;line-height:1.5}.markdown details{display:block}.markdown summary{display:list-item}.markdown a{background-color:initial}.markdown a:active,.markdown a:hover{outline-width:0}.markdown strong{font-weight:inherit;font-weight:bolder}.markdown h1{margin:.67em 0}.markdown img{border-style:none}.markdown code,.markdown kbd,.markdown pre{font-family:monospace,monospace;font-size:1em}.markdown hr{box-sizing:initial;overflow:visible}.markdown input{font:inherit;margin:0;overflow:visible}.markdown [type=checkbox]{box-sizing:border-box;padding:0}.markdown *{box-sizing:border-box}.markdown input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown a{border-bottom:.05em solid;border-color:var(--link-text-color);color:var(--link-text-color);text-decoration:none}.markdown a.anchor{border-bottom:none}.markdown strong{font-weight:700}.markdown hr{background:transparent;border-bottom:1px solid var(--markdown-blockquote-border-color);height:0;margin:15px 0;overflow:hidden}.markdown hr:after,.markdown hr:before{content:"";display:table}.markdown hr:after{clear:both}.markdown table{border-collapse:collapse;border-spacing:0}.markdown td,.markdown th{padding:0}.markdown details summary{cursor:pointer}.markdown h1,.markdown h2,.markdown h3,.markdown h4,.markdown h5,.markdown h6{margin-bottom:0;margin-top:0}.markdown h1{font-size:32px}.markdown h1,.markdown h2{font-weight:600}.markdown h2{font-size:24px}.markdown h3{font-size:20px}.markdown h3,.markdown h4{font-weight:600}.markdown h4{font-size:16px}.markdown h5{font-size:14px}.markdown h5,.markdown h6{font-weight:600}.markdown h6{font-size:12px}.markdown p{margin-bottom:10px;margin-top:0}.markdown blockquote{margin:0}.markdown ol,.markdown ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown ol ol,.markdown ul ol{list-style-type:lower-roman}.markdown ol ol ol,.markdown ol ul ol,.markdown ul ol ol,.markdown ul ul ol{list-style-type:lower-alpha}.markdown dd{margin-left:0}.markdown code,.markdown pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px}.markdown code.language-text{border-radius:3px;font-size:85%;padding:.2em .4em}.markdown :not(pre)>code.language-text{background:hsla(44,6%,50%,.15);color:#eb5757;overflow-wrap:break-word}.markdown pre{margin-bottom:0;margin-top:0}.markdown input::-webkit-inner-spin-button,.markdown input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown .border{border:1px solid var(--markdown-border-color)!important}.markdown .border-0{border:0!important}.markdown .border-bottom{border-bottom:1px solid var(--markdown-border-color)!important}.markdown .rounded-1{border-radius:3px!important}.markdown .bg-white{background-color:transparent!important}.markdown .bg-gray-light{background-color:#fafbfc!important}.markdown .text-gray-light{color:#6a737d!important}.markdown .pl-3,.markdown .px-3{padding-left:16px!important}.markdown .px-3{padding-right:16px!important}.markdown .f6{font-size:12px!important}.markdown .lh-condensed{line-height:1.25!important}.markdown .text-bold{font-weight:600!important}.markdown .pl-c{color:#6a737d}.markdown .pl-c1,.markdown .pl-s .pl-v{color:#005cc5}.markdown .pl-e,.markdown .pl-en{color:#6f42c1}.markdown .pl-s .pl-s1,.markdown .pl-smi{color:#24292e}.markdown .pl-ent{color:#22863a}.markdown .pl-k{color:#d73a49}.markdown .pl-pds,.markdown .pl-s,.markdown .pl-s .pl-pse .pl-s1,.markdown .pl-sr,.markdown .pl-sr .pl-cce,.markdown .pl-sr .pl-sra,.markdown .pl-sr .pl-sre{color:#032f62}.markdown .pl-smw,.markdown .pl-v{color:#e36209}.markdown .pl-bu{color:#b31d28}.markdown .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown .pl-c2:before{content:"^M"}.markdown .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown .pl-ml{color:#735c0f}.markdown .pl-mh,.markdown .pl-mh .pl-en,.markdown .pl-ms{color:#005cc5;font-weight:700}.markdown .pl-mi{color:#24292e;font-style:italic}.markdown .pl-mb{color:#24292e;font-weight:700}.markdown .pl-md{background-color:#ffeef0;color:#b31d28}.markdown .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown .pl-mc{background-color:#ffebda;color:#e36209}.markdown .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown .pl-mdr{color:#6f42c1;font-weight:700}.markdown .pl-ba{color:#586069}.markdown .pl-sg{color:#959da5}.markdown .pl-corl{color:#032f62;text-decoration:underline}.markdown .mb-0{margin-bottom:0!important}.markdown .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown .pl-0{padding-left:0!important}.markdown .py-0{padding-bottom:0!important;padding-top:0!important}.markdown .pl-1{padding-left:4px!important}.markdown .pl-2{padding-left:8px!important}.markdown .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown .pl-3{padding-left:16px!important}.markdown .pl-4{padding-left:24px!important}.markdown .pl-5{padding-left:32px!important}.markdown .pl-6{padding-left:40px!important}.markdown .pl-7{padding-left:48px!important}.markdown .pl-8{padding-left:64px!important}.markdown .pl-9{padding-left:80px!important}.markdown .pl-10{padding-left:96px!important}.markdown .pl-11{padding-left:112px!important}.markdown .pl-12{padding-left:128px!important}.markdown hr{border-bottom-color:#eee}.markdown kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-radius:3px;box-shadow:inset 0 -1px 0 #d1d5da;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown:after,.markdown:before{content:"";display:table}.markdown:after{clear:both}.markdown>:first-child{margin-top:0!important}.markdown>:last-child{margin-bottom:0!important}.markdown a:not([href]){color:inherit;text-decoration:none}.markdown blockquote,.markdown details,.markdown dl,.markdown ol,.markdown p,.markdown pre,.markdown table,.markdown ul{margin-bottom:16px;margin-top:0}.markdown hr{background-color:var(--markdown-border-color);border:0;height:.25em;margin:24px 0;padding:0}.markdown blockquote{border-left:.25em solid var(--markdown-blockquote-border-color);color:#6a737d;padding:0 1em}.markdown blockquote>:first-child{margin-top:0}.markdown blockquote>:last-child{margin-bottom:0}.markdown h1,.markdown h2,.markdown h3,.markdown h4,.markdown h5,.markdown h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown h1{font-size:2em}.markdown h2{font-size:1.5em}.markdown h3{font-size:1.25em}.markdown h4{font-size:1em}.markdown h5{font-size:.875em}.markdown h6{color:#6a737d;font-size:.85em}.markdown ol,.markdown ul{padding-left:2em}.markdown ol ol,.markdown ol ul,.markdown ul ol,.markdown ul ul{margin-bottom:0;margin-top:0}.markdown ol{list-style-type:decimal}.markdown ul{list-style-type:disc}.markdown li{word-wrap:break-all;display:list-item;text-align:-webkit-match-parent}.markdown li>p{margin-top:16px}.markdown li+li{margin-top:.25em}.markdown dl{padding:0}.markdown dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown dl dd{margin-bottom:16px;padding:0 16px}.markdown table{display:block;overflow:auto;width:100%}.markdown table th{font-weight:600}.markdown table td,.markdown table th{border:1px solid var(--markdown-table-border-color);padding:6px 13px}.markdown table tr{border-top:1px solid var(--markdown-table-border-color)}.markdown table tr:nth-child(2n){background-color:var(--markdown-table-even-cell-background-color)}.markdown img{background-color:transparent;box-sizing:initial;display:block;margin:0 auto;max-width:100%}.markdown img[align=right]{padding-left:20px}.markdown img[align=left]{padding-right:20px}.markdown code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown pre{word-wrap:normal}.markdown pre>code{background:transparent;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown .highlight{margin-bottom:16px}.markdown .highlight pre{margin-bottom:0;word-break:normal}.markdown .highlight pre,.markdown pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown pre code{word-wrap:normal;background-color:initial;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0}.markdown .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:90%}.markdown .full-commit .btn-outline:not(:disabled):hover{border-color:#005cc5;color:#005cc5}.markdown .blob-wrapper{overflow-x:auto;overflow-y:hidden}.markdown .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown .blob-num{color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;-webkit-user-select:none;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown .blob-num:hover{color:rgba(27,31,35,.6)}.markdown .blob-num:before{content:attr(data-line-number)}.markdown .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown .blob-code-inner{word-wrap:normal;color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px;overflow:visible;white-space:pre}.markdown .pl-token.active,.markdown .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown .tab-size[data-tab-size="1"]{-o-tab-size:1;tab-size:1}.markdown .tab-size[data-tab-size="2"]{-o-tab-size:2;tab-size:2}.markdown .tab-size[data-tab-size="3"]{-o-tab-size:3;tab-size:3}.markdown .tab-size[data-tab-size="4"]{-o-tab-size:4;tab-size:4}.markdown .tab-size[data-tab-size="5"]{-o-tab-size:5;tab-size:5}.markdown .tab-size[data-tab-size="6"]{-o-tab-size:6;tab-size:6}.markdown .tab-size[data-tab-size="7"]{-o-tab-size:7;tab-size:7}.markdown .tab-size[data-tab-size="8"]{-o-tab-size:8;tab-size:8}.markdown .tab-size[data-tab-size="9"]{-o-tab-size:9;tab-size:9}.markdown .tab-size[data-tab-size="10"]{-o-tab-size:10;tab-size:10}.markdown .tab-size[data-tab-size="11"]{-o-tab-size:11;tab-size:11}.markdown .tab-size[data-tab-size="12"]{-o-tab-size:12;tab-size:12}.markdown .task-list-item{list-style-type:none}.markdown .task-list-item+.task-list-item{margin-top:3px}.markdown .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown .table-of-contents{align-items:flex-start;display:flex;flex-direction:column;justify-content:center;position:fixed;right:0;top:75px;width:340px}@media(max-width:1300px){.markdown .table-of-contents{display:none}}.markdown .table-of-contents ul{cursor:pointer;list-style-type:none}.markdown .table-of-contents ul li a{border-bottom:none;color:var(--secondary-text-color);font-size:14px;height:30px;padding:6px 2px;width:100%}.markdown .table-of-contents ul p{margin:0}.markdown .gatsby-resp-image-wrapper{display:flex!important;justify-content:center!important;max-height:560px!important;width:100%!important}.markdown .gatsby-resp-image-wrapper img{height:auto!important;max-height:560px!important;max-width:100%!important;position:relative!important;width:auto!important}.markdown .gatsby-resp-image-wrapper+em{color:#6a737d;display:block;font-size:15px;font-style:italic;text-align:center}code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#ccc;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;hyphens:none;line-height:1.5;-o-tab-size:4;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}.post-content{margin-bottom:20px;width:100%}.category-page-header-wrapper,.post-content{display:flex;flex-direction:column;justify-content:center}.category-page-header-wrapper{align-items:center;margin-bottom:30px;margin-top:30px}.category-page-header-wrapper .category-page-title{border-bottom:3px solid var(--primary-text-color);font-size:40px;font-weight:700;margin-bottom:15px;padding-bottom:7px;text-align:center;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}.category-page-header-wrapper .category-page-subtitle{font-size:20px;font-weight:500;padding-bottom:10px;text-align:center}.post-card-wrapper{display:flex;justify-content:center;min-height:150px;width:100%}.post-card-wrapper .post-card{border:1px solid var(--post-card-border-color);border-radius:6px;color:var(--primary-text-color);cursor:pointer;display:flex;flex-direction:column;height:100%;margin-bottom:15px;max-width:720px;padding:15px;transition:-webkit-transform .2s;transition:transform .2s;transition:transform .2s,-webkit-transform .2s;width:100%}.post-card-wrapper .post-card:hover .title{text-decoration:underline}@media(min-width:768px){.post-card-wrapper .post-card{margin-bottom:0}}.post-card-wrapper .post-card .title{font-size:18px;font-weight:600;line-height:1.4;margin-bottom:7px}.post-card-wrapper .post-card .description{-webkit-line-clamp:3;-webkit-box-orient:vertical;color:var(--primary-text-color);display:-webkit-box;font-size:13px;line-height:20px;margin-bottom:10px;overflow:hidden;text-overflow:ellipsis}.post-card-wrapper .post-card .info{color:var(--about-link-icon-color);display:flex;font-size:14px;justify-content:space-between;margin-top:auto}.post-card-wrapper .post-card .info .categories{display:flex}.post-card-wrapper .post-card .info .categories .category{margin-left:4px}.post-card-wrapper .post-card .info .categories .category:hover{text-decoration:underline}.post-card-column-wrapper{display:flex;justify-content:center;width:100%}.post-card-column-wrapper .post-card-column{align-items:center;display:flex;flex-direction:column;width:100%}.post-card-column-wrapper .post-card-column .post-card-wrapper{margin-bottom:10px}.post-card-column-wrapper .post-card-column .more-post-card-button{background-color:var(--button-background-color);color:var(--tab-hover-text-color);font-size:15px;font-weight:500;height:40px}.post-tabs-wrapper{align-self:flex-start;display:flex;flex-direction:column;justify-content:center;top:0;width:100%}.post-tabs-wrapper .post-tabs{display:flex;height:40px;justify-content:center;margin-bottom:12px;max-width:760px;width:100%}.post-tabs-wrapper .post-tabs .mui-tabs .MuiTab-root{color:var(--tab-text-color);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:17px;font-weight:500;height:40px;min-height:auto;min-width:auto;padding:10px 12px;transition:all .2s ease}.post-tabs-wrapper .post-tabs .mui-tabs .Mui-selected,.post-tabs-wrapper .post-tabs .mui-tabs .MuiTab-root :hover{color:var(--tab-hover-text-color);transition:all .2s ease}.post-tabs-wrapper .post-tabs .mui-tabs .Mui-selected{background-color:var(--tab-selected-background-color);border-radius:8px;font-weight:600}.post-tabs-wrapper .post-tabs .mui-tabs .MuiTabScrollButton-root{height:40px;width:20px}.post-tabs-wrapper .post-tabs .mui-tabs .MuiTabs-scrollable{height:40px}.post-tabs-wrapper .post-tabs .mui-tabs .MuiTabs-indicator{display:none}</style><style data-emotion="css-global o6gwfi">html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;box-sizing:border-box;-webkit-text-size-adjust:100%;}*,*::before,*::after{box-sizing:inherit;}strong,b{font-weight:700;}body{margin:0;color:rgba(0, 0, 0, 0.87);font-family:"Roboto","Helvetica","Arial",sans-serif;font-weight:400;font-size:1rem;line-height:1.5;letter-spacing:0.00938em;background-color:#fff;}@media print{body{background-color:#fff;}}body::backdrop{background-color:#fff;}</style><style data-emotion="css-global 1prfaxn">@-webkit-keyframes mui-auto-fill{from{display:block;}}@keyframes mui-auto-fill{from{display:block;}}@-webkit-keyframes mui-auto-fill-cancel{from{display:block;}}@keyframes mui-auto-fill-cancel{from{display:block;}}</style><style data-emotion="css 18nc3u2 feqhe6 12rx5qu mnn31 vubbuv 1yxmbwk 6flbmm">.css-18nc3u2.Mui-focused .MuiAutocomplete-clearIndicator{visibility:visible;}@media (pointer: fine){.css-18nc3u2:hover .MuiAutocomplete-clearIndicator{visibility:visible;}}.css-18nc3u2 .MuiAutocomplete-tag{margin:3px;max-width:calc(100% - 6px);}.css-18nc3u2 .MuiAutocomplete-inputRoot{-webkit-box-flex-wrap:wrap;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;}.MuiAutocomplete-hasPopupIcon.css-18nc3u2 .MuiAutocomplete-inputRoot,.MuiAutocomplete-hasClearIcon.css-18nc3u2 .MuiAutocomplete-inputRoot{padding-right:30px;}.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-18nc3u2 .MuiAutocomplete-inputRoot{padding-right:56px;}.css-18nc3u2 .MuiAutocomplete-inputRoot .MuiAutocomplete-input{width:0;min-width:30px;}.css-18nc3u2 .MuiInput-root{padding-bottom:1px;}.css-18nc3u2 .MuiInput-root .MuiInput-input{padding:4px 4px 4px 0px;}.css-18nc3u2 .MuiInput-root.MuiInputBase-sizeSmall .MuiInput-input{padding:2px 4px 3px 0;}.css-18nc3u2 .MuiOutlinedInput-root{padding:9px;}.MuiAutocomplete-hasPopupIcon.css-18nc3u2 .MuiOutlinedInput-root,.MuiAutocomplete-hasClearIcon.css-18nc3u2 .MuiOutlinedInput-root{padding-right:39px;}.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-18nc3u2 .MuiOutlinedInput-root{padding-right:65px;}.css-18nc3u2 .MuiOutlinedInput-root .MuiAutocomplete-input{padding:7.5px 4px 7.5px 5px;}.css-18nc3u2 .MuiOutlinedInput-root .MuiAutocomplete-endAdornment{right:9px;}.css-18nc3u2 .MuiOutlinedInput-root.MuiInputBase-sizeSmall{padding-top:6px;padding-bottom:6px;padding-left:6px;}.css-18nc3u2 .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input{padding:2.5px 4px 2.5px 8px;}.css-18nc3u2 .MuiFilledInput-root{padding-top:19px;padding-left:8px;}.MuiAutocomplete-hasPopupIcon.css-18nc3u2 .MuiFilledInput-root,.MuiAutocomplete-hasClearIcon.css-18nc3u2 .MuiFilledInput-root{padding-right:39px;}.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-18nc3u2 .MuiFilledInput-root{padding-right:65px;}.css-18nc3u2 .MuiFilledInput-root .MuiFilledInput-input{padding:7px 4px;}.css-18nc3u2 .MuiFilledInput-root .MuiAutocomplete-endAdornment{right:9px;}.css-18nc3u2 .MuiFilledInput-root.MuiInputBase-sizeSmall{padding-bottom:1px;}.css-18nc3u2 .MuiFilledInput-root.MuiInputBase-sizeSmall .MuiFilledInput-input{padding:2.5px 4px;}.css-18nc3u2 .MuiInputBase-hiddenLabel{padding-top:8px;}.css-18nc3u2 .MuiFilledInput-root.MuiInputBase-hiddenLabel{padding-top:0;padding-bottom:0;}.css-18nc3u2 .MuiFilledInput-root.MuiInputBase-hiddenLabel .MuiAutocomplete-input{padding-top:16px;padding-bottom:17px;}.css-18nc3u2 .MuiFilledInput-root.MuiInputBase-hiddenLabel.MuiInputBase-sizeSmall .MuiAutocomplete-input{padding-top:8px;padding-bottom:9px;}.css-18nc3u2 .MuiAutocomplete-input{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;text-overflow:ellipsis;opacity:1;}.css-feqhe6{display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;position:relative;min-width:0;padding:0;margin:0;border:0;vertical-align:top;width:100%;}.css-12rx5qu{font-family:"Roboto","Helvetica","Arial",sans-serif;font-weight:400;font-size:1rem;line-height:1.4375em;letter-spacing:0.00938em;color:rgba(0, 0, 0, 0.87);box-sizing:border-box;position:relative;cursor:text;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:100%;position:relative;}.css-12rx5qu.Mui-disabled{color:rgba(0, 0, 0, 0.38);cursor:default;}label+.css-12rx5qu{margin-top:16px;}.css-12rx5qu:after{border-bottom:2px solid #1976d2;left:0;bottom:0;content:"";position:absolute;right:0;-webkit-transform:scaleX(0);-moz-transform:scaleX(0);-ms-transform:scaleX(0);transform:scaleX(0);-webkit-transition:-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;transition:transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;pointer-events:none;}.css-12rx5qu.Mui-focused:after{-webkit-transform:scaleX(1) translateX(0);-moz-transform:scaleX(1) translateX(0);-ms-transform:scaleX(1) translateX(0);transform:scaleX(1) translateX(0);}.css-12rx5qu.Mui-error:before,.css-12rx5qu.Mui-error:after{border-bottom-color:#d32f2f;}.css-12rx5qu:before{border-bottom:1px solid rgba(0, 0, 0, 0.42);left:0;bottom:0;content:"\00a0";position:absolute;right:0;-webkit-transition:border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;pointer-events:none;}.css-12rx5qu:hover:not(.Mui-disabled, .Mui-error):before{border-bottom:2px solid rgba(0, 0, 0, 0.87);}@media (hover: none){.css-12rx5qu:hover:not(.Mui-disabled, .Mui-error):before{border-bottom:1px solid rgba(0, 0, 0, 0.42);}}.css-12rx5qu.Mui-disabled:before{border-bottom-style:dotted;}.css-mnn31{font:inherit;letter-spacing:inherit;color:currentColor;padding:4px 0 5px;border:0;box-sizing:content-box;background:none;height:1.4375em;margin:0;-webkit-tap-highlight-color:transparent;display:block;min-width:0;width:100%;-webkit-animation-name:mui-auto-fill-cancel;animation-name:mui-auto-fill-cancel;-webkit-animation-duration:10ms;animation-duration:10ms;}.css-mnn31::-webkit-input-placeholder{color:currentColor;opacity:0.42;-webkit-transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;}.css-mnn31::-moz-placeholder{color:currentColor;opacity:0.42;-webkit-transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;}.css-mnn31:-ms-input-placeholder{color:currentColor;opacity:0.42;-webkit-transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;}.css-mnn31::-ms-input-placeholder{color:currentColor;opacity:0.42;-webkit-transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;}.css-mnn31:focus{outline:0;}.css-mnn31:invalid{box-shadow:none;}.css-mnn31::-webkit-search-decoration{-webkit-appearance:none;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31::-webkit-input-placeholder{opacity:0!important;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31::-moz-placeholder{opacity:0!important;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31:-ms-input-placeholder{opacity:0!important;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31::-ms-input-placeholder{opacity:0!important;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31:focus::-webkit-input-placeholder{opacity:0.42;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31:focus::-moz-placeholder{opacity:0.42;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31:focus:-ms-input-placeholder{opacity:0.42;}label[data-shrink=false]+.MuiInputBase-formControl .css-mnn31:focus::-ms-input-placeholder{opacity:0.42;}.css-mnn31.Mui-disabled{opacity:1;-webkit-text-fill-color:rgba(0, 0, 0, 0.38);}.css-mnn31:-webkit-autofill{-webkit-animation-duration:5000s;animation-duration:5000s;-webkit-animation-name:mui-auto-fill;animation-name:mui-auto-fill;}.css-vubbuv{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:1em;height:1em;display:inline-block;fill:currentColor;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;-webkit-transition:fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;font-size:1.5rem;}.css-1yxmbwk{display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;position:relative;box-sizing:border-box;-webkit-tap-highlight-color:transparent;background-color:transparent;outline:0;border:0;margin:0;border-radius:0;padding:0;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:middle;-moz-appearance:none;-webkit-appearance:none;-webkit-text-decoration:none;text-decoration:none;color:inherit;text-align:center;-webkit-flex:0 0 auto;-ms-flex:0 0 auto;flex:0 0 auto;font-size:1.5rem;padding:8px;border-radius:50%;overflow:visible;color:rgba(0, 0, 0, 0.54);-webkit-transition:background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;}.css-1yxmbwk::-moz-focus-inner{border-style:none;}.css-1yxmbwk.Mui-disabled{pointer-events:none;cursor:default;}@media print{.css-1yxmbwk{-webkit-print-color-adjust:exact;color-adjust:exact;}}.css-1yxmbwk:hover{background-color:rgba(0, 0, 0, 0.04);}@media (hover: none){.css-1yxmbwk:hover{background-color:transparent;}}.css-1yxmbwk.Mui-disabled{background-color:transparent;color:rgba(0, 0, 0, 0.26);}.css-6flbmm{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:1em;height:1em;display:inline-block;fill:currentColor;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;-webkit-transition:fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;transition:fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;font-size:2.1875rem;}</style><link rel="preconnect" href="https://www.google-analytics.com"/><link rel="dns-prefetch" href="https://www.google-analytics.com"/><script>
+  
+  function gaOptout(){document.cookie=disableStr+'=true; expires=Thu, 31 Dec 2099 23:59:59 UTC;path=/',window[disableStr]=!0}var gaProperty='G-Z1P475ZSBN',disableStr='ga-disable-'+gaProperty;document.cookie.indexOf(disableStr+'=true')>-1&&(window[disableStr]=!0);
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'G-Z1P475ZSBN', 'auto', {});
+      ga('set', 'anonymizeIp', true);
+      
+      
+      
+      
+      }</script><link rel="icon" href="/favicon-32x32.png?v=ad9e124e5060ab5ddbaf24744e1cfc72" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=ad9e124e5060ab5ddbaf24744e1cfc72"/><style type="text/css">
+    .anchor.before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      padding-right: 4px;
+    }
+    .anchor.after {
+      display: inline-block;
+      padding-left: 4px;
+    }
+    h1 .anchor svg,
+    h2 .anchor svg,
+    h3 .anchor svg,
+    h4 .anchor svg,
+    h5 .anchor svg,
+    h6 .anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .anchor svg,
+    h2:hover .anchor svg,
+    h3:hover .anchor svg,
+    h4:hover .anchor svg,
+    h5:hover .anchor svg,
+    h6:hover .anchor svg,
+    h1 .anchor:focus svg,
+    h2 .anchor:focus svg,
+    h3 .anchor:focus svg,
+    h4 .anchor:focus svg,
+    h5 .anchor:focus svg,
+    h6 .anchor:focus svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
+          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabVmUiAo.woff2"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiAo.woff2"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWub2bVmUiAo.woff2"/><style>@font-face{font-display:swap;font-family:Roboto;font-stretch:normal;font-style:normal;font-weight:300;src:url(/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabVmUiAo.woff2) format("woff2")}@font-face{font-display:swap;font-family:Roboto;font-stretch:normal;font-style:normal;font-weight:400;src:url(/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiAo.woff2) format("woff2")}@font-face{font-display:swap;font-family:Roboto;font-stretch:normal;font-style:normal;font-weight:500;src:url(/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWub2bVmUiAo.woff2) format("woff2")}@font-face{font-display:swap;font-family:Roboto;font-stretch:normal;font-style:normal;font-weight:300;src:url(/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabVmUiAw.woff) format("woff")}@font-face{font-display:swap;font-family:Roboto;font-stretch:normal;font-style:normal;font-weight:400;src:url(/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiAw.woff) format("woff")}@font-face{font-display:swap;font-family:Roboto;font-stretch:normal;font-style:normal;font-weight:500;src:url(/static/webfonts/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWub2bVmUiAw.woff) format("woff")}</style><link rel="sitemap" type="application/xml" href="/sitemap.xml"/><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><title data-react-helmet="true">Implicit Neural Representations for Image Compression</title></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="page-wrapper"><header class="page-header-wrapper"><div class="page-header"><div class="front-section"><a class="link" href="/">Hagyeong-Log</a></div><div class="trailing-section"><a class="link" href="/about">about</a><a class="link" href="/posts">posts</a><div class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon css-18nc3u2"><div class="search-input-wrapper"><div class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root search-input css-feqhe6"><div class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-12rx5qu"><input type="text" aria-invalid="false" autoComplete="off" value="" class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-mnn31" aria-autocomplete="list" aria-expanded="false" autoCapitalize="none" spellcheck="false" role="combobox"/><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium search-icon css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SearchOutlinedIcon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></div></div></div></div></div></div></header><main class="page-content"><header class="post-header"><div class="emoji">📄</div><div class="info"><div class="categories"><a class="category" href="/posts/PaperReview">PaperReview</a><a class="category" href="/posts/Compression">Compression</a></div></div><h1 class="title">Implicit Neural Representations for Image Compression</h1><div class="info"><div class="author">posted by <strong>hagyeong</strong>,</div> <!-- -->March 09, 2022</div></header><div class="post-content"><div class="markdown"><h1 id="implicit-neural-representations-for-image-compression" style="position:relative;"><a href="#implicit-neural-representations-for-image-compression" aria-label="implicit neural representations for image compression permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Implicit Neural Representations for Image Compression</h1>
+<h2 id="introduction" style="position:relative;"><a href="#introduction" aria-label="introduction permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<ul>
+<li>preserves all the information (lossless compression)</li>
+<li>sacrifices some information for even smaller file sizes (lossy compression)</li>
+</ul>
+<p>정보를 모두 보존하는 방향으로의 compression 또는 조금의 정보는 손실이 있어도 파일 크기를 더 줄이는 방향으로의 compression이 존재한다.</p>
+<p>—> fundamental theoretical limit (Shannon’s entropy)</p>
+<p>정보 손실없는 compression이 더 desirable하지만 기본 이론적 한계가 존재한다. 샤넌의 엔트로피는 정보를 표현하는데 필요한 최소 평균 자원량을 말하는데, 샤넌은 아무리 좋은 코드를 설계하더라도 평균 길이가 엔트로피 H(X)보다 짧아질 수 없음을 밝혔다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 304px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 11.11111111111111%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAcUlEQVQI1zWOywrFIAxE+/8f564r31jEim/BupuLgbtKJmdmyOWcA2MMSimklPC+L6SUiDGCc0671prYGANCCIQQYK2F9x73fcMYQ77Tca21kHMm894bvXcKnVsphXStFd/3ET8PPM9DfM5J869ba/gBh92UdR18OJQAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="1"
+        title="1"
+        src="/static/3b77b785479b7ee8b0fae3fd8f067ce6/c1724/1.png"
+        srcset="/static/3b77b785479b7ee8b0fae3fd8f067ce6/e9ff0/1.png 180w,
+/static/3b77b785479b7ee8b0fae3fd8f067ce6/c1724/1.png 304w"
+        sizes="(max-width: 304px) 100vw, 304px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<ul>
+<li>Therefore, lossy compression aims at trading off a file’s quality with its size - called rate-distortion trade-off.</li>
+</ul>
+<p>그러므로, lossy compression(정보를 조금 손실해도 파일의 크기를 더 줄일 수 있는 방향으로의 compression)은 파일의 퀄리티와 사이즈에 대한 trading off를 목표로 한다. (rate-distortion trade-off 라고 부르는 trade off이다.)</p>
+<ul>
+<li>
+<p>machine learning research has recently developed promising learned approaches to source compression by leveraging the power of neural networks</p>
+<ul>
+<li>
+<p>Rate-Distortion Autoencoders (RDAEs) : jointly optimize the quality of the decoded data sample and its encoded file size.</p>
+<p>(RDAE : 디코딩된 데이터 샘플의 품질과 인코딩된 파일 크기를 공동으로 최적화)</p>
+</li>
+</ul>
+<p>—> sidesteps the prevalent approach of RDAEs ; focusing on <em><strong>image compression</strong></em></p>
+<p>RDAE의 일반적인 접근 방식을 피해서 특히 영상 압축에 초점을 맞춘 소스 압축의 새로운 패러다임을 조사한다.</p>
+</li>
+<li>
+<p>Implicit Neural Representations (INRs) gained popularity as a flexible</p>
+</li>
+<li>
+<p>INRs —> multi-purpose data representation that is able to produce high-fidelity samples on images, 3D shapes, and scenes.</p>
+<p>flexible한 방법으로 다양한 목적의 데이터 표현을 가능하게 하여 images, 3D shapes, and scene에 높은 정밀도의 샘플을 생성할 수 있게 해준다.</p>
+</li>
+<li>
+<p>INRs represent data that lives on an underlying regular grid by learning a mapping between the grid’s coordinates and the corresponding data values (e.g. RGB values)</p>
+<p>INR은 좌표와 그에 해당하는 데이터 value(예를 들면 RGB 값들)를 매핑하여 regular grid에 존재하는 데이터를 표현한다.</p>
+</li>
+<li>
+<p>INRs have even been hypothesized to yield well compressed representations</p>
+<p>(INR은 심지어 잘 압축된 표현을 산출한다는 가설도 있다. )</p>
+</li>
+</ul>
+<p>⇒ How good are these INRs in terms of rate-distortion performance?</p>
+<p>(INR이 rate-distortion 측면에서 얼마나 우수한지에 대해 궁금해지게 된다. 그러나 지금까지 INR은 소스 압축에 대한 연구에서 놀라울 정도로 빠져있었다. 이에 대해서 연구한 논문은 COIN과 NerV뿐이었다. )</p>
+<ul>
+<li>
+<p>Why INRs have not been applied to image compression</p>
+<p>(1) Straightforward approaches struggle to compete even with the simplest traditional algorithms</p>
+<p>(간단한 접근 방식 (INR을 지칭하는 방식일 듯) 가장 단순한 전통적인 알고리즘과 경쟁하기 어렵다)</p>
+<p>(2) Since INRs encode data by overfitting to particular instances, the encoding time is perceived impractical.</p>
+<p>(특정 인스턴스에 오버피팅하여 데이터를 인코딩하므로 인코딩 시간이 오래 걸릴 것)</p>
+</li>
+</ul>
+<p>⇒ propose a <strong>comprehensive image compression pipeline on the basis on INRs</strong>.</p>
+<p>(INR을 기반으로 종합적인 이미지 압축 파이프라인을 제안)</p>
+<ul>
+<li>our proposed method can easily be adapted to any coordinatebased data modality</li>
+</ul>
+<p>(우리의 제안된 방법은 어떤 좌표 기반 데이터 양식에도 쉽게 적용)</p>
+<ul>
+<li>young field of INRs-based compression can greatly improve by making targeted choices regarding the neural network architecture</li>
+</ul>
+<p>(INR 기반의 압축 분야는 뉴럴 네트워크 아키텍처와 관련해서 targeted 선택을 함으로써 크게 나아질 수 있을 것이다)</p>
+<ul>
+<li>
+<p>meta-learning for INRs based on Model-Agnostic Meta-Learning(MAML) to find weight initializations</p>
+<ul>
+<li>can compress data with fewer gradient updates</li>
+</ul>
+<p>→ better rate-distortion performance</p>
+<p>(INR을 MAML 기반으로한 메타 러닝 방법을 웨이트 초기화를 위해 도입했다. 이는 더 작은 그래디언트 업데이트를 해서 데이터를 압축할 수 있게 하여 rate-distortion 측면에서 좋은 성능을 보였다.)</p>
+</li>
+</ul>
+<p>⇒ INRs are a promising emerging compression paradigm and primarily requires deriving architectures for INRs and meta-learning approaches tailored to compression needs.</p>
+<p>(유망한 압축 패러다임이며, 주로 INR을 위한 아키텍처와 압축 니즈에 맞춘 메타 러닝 접근 방법을 요구한다.)</p>
+<h2 id="related-work" style="position:relative;"><a href="#related-work" aria-label="related work permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Related Work</h2>
+<ul>
+<li>
+<p>Learned Image Compression</p>
+<ul>
+<li>end-to-end autoencoder</li>
+<li>entropy model</li>
+<li>coarse-to-fine hierarchical hyperprior → NeRF
+<ul>
+<li>Coarse : 전체 set에서 서로 겹치지 않게 sample을 뽑는 방법, $N_C$ 개 만큼 뽑아서 Fully Connected layer에 넣어준다. Nc개에 대해서 sigma(volume density)와 color를 뽑을 수 있음. 그리고 normalize 시킴(전체 color에 얼마만큼 기여하는지를 알아보기 위해) → probability distribution을 만들 수 있음(Nc개의 point가 각각 최종 color에 얼마만큼의 확률이 반영되는지)</li>
+<li>Fine : PDF(probability distibution f)를 고려하기 위해 PDF의 CDF(cumulative density f)의 inverse를 사용해서 sampling하는 방법 → PDF에서 peak 지점을 위주로 sampling 됨</li>
+</ul>
+</li>
+<li>achieve further improvements by adding attention modules and using a Gaussian Mixture Model (GMM) for latent representations</li>
+<li>SOTA = invertible convolutional network, and apply residual feature enhancement as pre-processing and post-processing</li>
+</ul>
+<p><a href="https://www.notion.so/Enhanced-invertible-encoding-for-learned-image-compression-578b1d00f1324f1091904bdb2aaab313">Enhanced invertible encoding for learned image compression</a></p>
+<ul>
+<li>variable rate compression
+<ul>
+<li>RNN-based autoencoders</li>
+</ul>
+</li>
+<li>conditional autoencoders</li>
+<li>propose image compression with Generative Adversarial Networks (GAN)</li>
+</ul>
+</li>
+<li>
+<p>Implicit Neural Representations</p>
+<ul>
+<li>
+<p>DeepSDF : neural network representation for 3D shapes</p>
+<p>(3D 공간을 표현하는 뉴럴 네트워크)</p>
+<p><a href="https://github.com/facebookresearch/DeepSDF">GitHub - facebookresearch/DeepSDF: Learning Continuous Signed Distance Functions for Shape Representation</a></p>
+<ul>
+<li>
+<p>Signed Distance Function (SDF) : represent the shape by a field where every point in space holds the distance to the shape’s surface</p>
+<p>(특정한 공간상의 지점(point)의 좌표를 지정해주면 점과 어떠한 표면(surface)사이의 가장 가까운 거리를 반환하는 함수)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>INRs have also been used for scene representation, image representation, and compact(압축된) representation</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Model Compression</p>
+<ul>
+<li>
+<p>past decades : proposes sequentially applying pruning, quantization and entropy coding combined with retraining in between the steps.</p>
+<p>(Deep compression 방법을 의미, 순차적으로 pruning, quantization, entropy coding을 진행했던 방법)</p>
+</li>
+<li>
+<p>Later : suggests an end-to-end learning approach using a rate-distortion objective</p>
+<p>(end to end 방법 사용, 하나의 loss function에 대해 동시에 training)</p>
+<ul>
+<li>To optimize performance under quantization,
+<ul>
+<li>mixed-precision quantization</li>
+<li>post-quantization</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Model Weights for Instance Adaptive Compression</p>
+<ul>
+<li>finetuning the decoder weights of an RDAE on a per instance basis</li>
+<li>appending the weight update to the latent vector</li>
+<li>However the RDAE architecture fundamentally differs from ours</li>
+</ul>
+<p>(기본적인 rate distortion autoencoder 구조와 다르게 사용했다)</p>
+<ul>
+<li>
+<p>COIN</p>
+<ul>
+<li>overfits an INR’s model weights to represent single images and compresses the INR using quantization</li>
+<li><code class="language-text">does not use post-quantization retraining, entropy coding and meta-learning for initializing INRs</code></li>
+</ul>
+<p><a href="https://github.com/EmilienDupont/coin">GitHub - EmilienDupont/coin: Pytorch implementation of COIN, a framework for compression with implicit neural representations 🌸</a></p>
+</li>
+<li>
+<p>NeRV</p>
+<ul>
+<li>use another data modality (audio, not image)</li>
+<li>does not use post-quantization retraining, meta learned initializations</li>
+</ul>
+<p><a href="https://github.com/haochen-rye/nerv">GitHub - haochen-rye/NeRV: Official Pytorch implementation for video neural representation (NeRV)</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="method" style="position:relative;"><a href="#method" aria-label="method permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Method</strong></h2>
+<h3 id="background" style="position:relative;"><a href="#background" aria-label="background permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Background</h3>
+<ul>
+<li>INRs
+<ul>
+<li>store coordinate-based data by representing data as a continuous function</li>
+</ul>
+from coordinates to values
+<ul>
+<li>
+<p>EX) x, y 좌표를 갖는 이미지 좌표 <img src="https://latex.codecogs.com/gif.latex?\bg{white}(p_x,p_y)"> 를 RGB와 같은 color space를 갖는 color vector와 매핑 :</p>
+<img src="https://latex.codecogs.com/gif.latex?\bg{white}I:(p_x, p_y) \rightarrow (R,G,B)">
+</li>
+<li>
+<p>This mapping can be approximated by a neural network $f_\theta$, typically a Multi Layer Perceptron (MLP) with parameters $\theta$</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 221px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 13.88888888888889%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwklEQVQI1zXKXU+DMACFYf7/jzHzI2KyOLObORPFbAh3C2Bm2zFtpVgHSHlNTXxu3otzoizP+HIO7z1B6Og93o98aMPQ99i2/dukEDS2xRjDqev4Fz5B03wSrR7WLG7nxPMF71qz3TwTX19R7CW7ouQgBfFNzHf/w/p+xXJ5x2PyxOzikmSbYa3lfHZGsknZlRWRc46qKqmPR6Q6oLXmtSxI8xx36pimiWEY8OOIUhIpFW9CoFSoRBtNXdekLyl7IfgFuWXc9oxMCQcAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="2"
+        title="2"
+        src="/static/2bca360a739f4cb7e2d0ea4f5a38280d/cccdc/2.png"
+        srcset="/static/2bca360a739f4cb7e2d0ea4f5a38280d/e9ff0/2.png 180w,
+/static/2bca360a739f4cb7e2d0ea4f5a38280d/cccdc/2.png 221w"
+        sizes="(max-width: 221px) 100vw, 221px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+</li>
+<li>
+<p>To express a pixel based image tensor x, evaluate the image function on a uniformly spaced coordinate grid p such that x = $I(p)\in R^{W<em>H</em>3}$,</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 560px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 48.33333333333333%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABlklEQVQoz1VSCZKjMAzM/z84zBIIkCxgbmOb2/RWK0NtRlUKiktHt1o3ANj3Ddu2YZ5nTNOEqq4xjiNO73F4L3GpFFNhrYWxBtu+YVlWGMN4x2U3/gxDj7ppMC8L4jjG6/VC1/fYtw39MCBJM1RVhWVZoLVGWZYyuB+0DD8BdF0HY+y74XEcsM7BOYu/eY5939G0DQzRmFGau8nJ0HVdYa2BHkdhRKcRKQdKw/P0UjyOGl0/CNWrQCgaI17XNbz3cPJmBaVzDp92I8UojpBmGbIsQ1EUiOIH7tEdz+dTKDFHVQp5niMIAiRJgjRN8ScMEd5DfH1/S3wcHjfSI43L+Z/QubO26wQhkV55Sil5p1Bt20nuVXue55vym/YpdLhhKp5lKeIkEYTc8f6jpFIloscDTdOgaTv445B31jLvxka0UWt8BYE04FlM0/xrN2x45V5GxZd1lbiqFAat/zfk90LBuwzDEFEcy4kQMafT0yxFFEVo2hZ5UcjbL1GuZp/GJO6IN0gVSYdO9bnTvu9/FJ7wCYg7/AeYuQJQTzK1FwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="3"
+        title="3"
+        src="/static/a109641c5ea80d0544a740071639ba20/b06ae/3.png"
+        srcset="/static/a109641c5ea80d0544a740071639ba20/e9ff0/3.png 180w,
+/static/a109641c5ea80d0544a740071639ba20/f21e7/3.png 360w,
+/static/a109641c5ea80d0544a740071639ba20/b06ae/3.png 560w"
+        sizes="(max-width: 560px) 100vw, 560px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+</li>
+</ul>
+</li>
+<li>Rate-distortion Autoencoders
+<ul>
+<li>An encoder network produces a compressed representation
+<ul>
+<li>latent vector $z \in R^d$</li>
+<li>Early approaches enforce compactness of $z$ by limiting its dimension $d$</li>
+<li>Newer methods constrain the representation by adding an entropy estimate of z to the loss. → rate loss</li>
+<li>This rate term, reflecting the storage requirement of z, is minimized jointly with a distortion term, that quantifies the compression error.</li>
+</ul>
+(z의 저장 요구사항을 반영한 rate term은 distortion term을 최소화하면서 압축 오류를 quantify, 수량화한다.)</li>
+</ul>
+</li>
+</ul>
+<h3 id="image-compression-using-inrs" style="position:relative;"><a href="#image-compression-using-inrs" aria-label="image compression using inrs permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Image Compression using INRs</h3>
+<ul>
+<li>
+<p>In contrast to RDAEs, INRs store all information implicitly in the network weights $\theta$</p>
+</li>
+<li>
+<p>encoding process ⇒ training the INR</p>
+</li>
+<li>
+<p>decoding process ⇒ loading a set of weights into the network and evaluating on a coordinate grid</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 466px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 7.222222222222221%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAABCAYAAADeko4lAAAACXBIWXMAAAsTAAALEwEAmpwYAAAASUlEQVQI1wXB2Q2AIBBAQfvvTw5JlGtZDB+ADTxnjm8vnPeEcGGcI+dEbUp8bk5r0d4ZY9BUWXtTSqGK0N8XEWHOiaryxIS3hh+MEUk8KGGl8wAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="4"
+        title="4"
+        src="/static/f1f14e9c784c7640796b987c1fc1d80b/fc1a1/4.png"
+        srcset="/static/f1f14e9c784c7640796b987c1fc1d80b/e9ff0/4.png 180w,
+/static/f1f14e9c784c7640796b987c1fc1d80b/f21e7/4.png 360w,
+/static/f1f14e9c784c7640796b987c1fc1d80b/fc1a1/4.png 466w"
+        sizes="(max-width: 466px) 100vw, 466px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>only need to store $\theta ^*$ to reconstruct a distorted version of the original image x</p>
+<p>⇒ method to find $\theta ^*$ to achieve compact storage and good reconstruction at the same time</p>
+</li>
+<li>
+<p>Architecture</p>
+<ul>
+<li>
+<p>use SIREN</p>
+<p><a href="https://github.com/lucidrains/siren-pytorch">GitHub - lucidrains/siren-pytorch: Pytorch implementation of SIREN - Implicit Neural Representations with Periodic Activation Function</a></p>
+<ul>
+<li>a MLP using sine activations with a frequency $w$ = 30</li>
+<li>Since we aim to evaluate our method at multiple bitrates, we vary the model size to obtain a rate distortion curve.</li>
+<li>how to vary the model size to achieve optimal rate-distortion performance</li>
+</ul>
+<p>and on the architecture of the INR</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">  ⇒ [Section] Number of Layers and Hidden Dimension &amp; [Section] Choosing Input Encoding and Activation
+  </code></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>Input Encoding</p>
+<ul>
+<li>
+<p>An input encoding transforms the input coordinate to a higher dimension</p>
+<p>→ improve perceptual quality</p>
+</li>
+<li>
+<p>Best → the first to combine SIREN with an input encoding</p>
+</li>
+<li>
+<p>positional encoding</p>
+<p><a href="https://www.notion.so/cf-Positional-Encoding-b2dd7519a3c94d7ead7e5deaa5f9be71">cf) Positional Encoding </a></p>
+<ul>
+<li>
+<p><code class="language-text">위치 정보를 그대로 입력 하는 것이 아니라 sin, cos 함수에 넣어서 훨씬 높은 차원 정보를 입력으로 넣는 것</code></p>
+</li>
+<li>
+<p>introduce the scale parameter $\sigma$ to adjust the frequency spacing and concatenate the frequency terms with the original coordinate $p$ (as in the codebase for SIREN)</p>
+<ul>
+<li>L : the number of frequencies used</li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 361px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 22.22222222222222%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA3ElEQVQY012O226CQBRF+f9fq09FhNHGUgzMaJW5UoZRWA30rTs5yX45a69smiLGaLSxxPjXx3Hkcb/Ta41SEqkU1hqGYcB5j9YaKSVKXTHGEKeJNcuykI0/gX2x5/RZY3RPWZaoq0IIQXU8oZSik5LDoaBtO5rLhUpU3G432q7bftfheVnw3pPxL6/XE+ccMY70vWYIAevCZp1SYkqJMUasMfgQNshqHYInPV9kq+Z68zxvQNm1vO12iKPg+/EgTRN105Dn+Wb3cT7znufUX/UGdtaSFwWVKOmN4xeXXS3/9OpyAwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="5"
+        title="5"
+        src="/static/a75fb206390deeca89cc05cae4b5a0e0/39d76/5.png"
+        srcset="/static/a75fb206390deeca89cc05cae4b5a0e0/e9ff0/5.png 180w,
+/static/a75fb206390deeca89cc05cae4b5a0e0/f21e7/5.png 360w,
+/static/a75fb206390deeca89cc05cae4b5a0e0/39d76/5.png 361w"
+        sizes="(max-width: 361px) 100vw, 361px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>→ [Section] Choosing Input Encoding and Activation</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Compression Pipeline for INRs</p>
+<ol>
+<li>
+<p>based on randomly initialized INRs</p>
+</li>
+<li>
+<p>meta-learned initializations (to improve INR based compression in terms of rate-distortion performance and encoding time)</p>
+</li>
+</ol>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 538px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 90.55555555555556%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsTAAALEwEAmpwYAAAESklEQVQ4y12R2W8bZRTF/U/xF/DGA+IBwQMUKgQSfSqiKogWUZGKpYKKFtGSCgVVXdKSOGncJm6SuonrplmcxUkcL4kT22OPPYvt2ezxMpmZH7KjColPOrrn6N5zv/PpCwD4vv8fPKhoOXbKC6QqL0mWoyTF2EArZmHQP5nz+wT/f/7Aa3JyfJyei9GTENu7VNtptgvLCOYOlU4S01HodV/Pgud5uK57As8b+ANGx8PseGj2MVbXRzFaVGsWq2sJRKWOrMZJHxRZWdtCapjUTAnN7FATZGwHHE7Qv8douwQKkk6qIPPbZJzFjT1K4j1ebWzyYDzETGSO3OFPPJx8xN0Hk7xYfs6+cINndyeIv/cpz9eyDE8uMDIVZXRuFdl0CCiWQ0VrM78tEo0nyGZ/YHljnenZRcKReSKRc4xNhQiFn7OytUR89TLDE39yM3OWK9eucurUO5z+/GPOnP8Kxez2E2qkizJXJ1aZXdqgWLzG0voaE1NPeTIXJrH9HffHg/wTnObFygKp1PfcvB3m7OVlbv5xjY/efZPPPnmfixfPI/cXymaPqt4hUWhQqtsIUo69Q4HQ9BybeymqygSxtQ2CUzPsHR5SrS+T3LcIPXI4quik8hJZoUa2qNB/baBuezTaHnrnpOalJvmqxkFJpigbLG9lBjpfbSAoJkWljXUMHXzqtotqOShmj34wtekQyEsGR5JBRe8iW86g0a+q5ZIT68R399kvKezmygiqRV7SSB6KJDICmYKM2nJpdKBme/TDBRTNQmpY6HaPZs+l2fXRu01S9RhVXUbVWiiaSVGU0FpdVL1JqaoiVBQKZYnYyjq5okhZaVCt6QTqJZ2aoGHXu/QMF8fw6VhtCuo2NUlFzEloFYNCRsCQW5hyk2K2hJircpDMs/VqBymvUC/rNESDQFPqYlY7WFIPW3UwKy0apSaW2KOcVViP7SKkqxztClQOVGpFAyFdIb9bQshItOsuPQ3aNZduwyPQqfeJi697HOugFtvUBZOjlIBeaVLKHlIvGQjZCnqlhZzX8W1wunBswLHm4WgevYZHu+YQsKQOWsUmul5GyNWoFeKkNzNMBafZXIojH90iOhsl+DDEfmIHVQyTjyQQvx1GzhvksjWOMipCTjtZqJUtxJzKyJMEsegG5fSPbL2K83hylvnHYbaWLjB+b5zJsWk2Xi6yF7/M/Vs3mPj9FH/fmeTMN5f4YugKF38ZpqX2CJhVm3q5yVT0gNhCnPzuEDurm8yHoyw+fcb6iwuExkKEQxHisQVSK0P8df8ul+avc/3nIT54+w1Of/gW5748Q0vpEtAEC/GgxujsHqltgWY1SnItyfjoFC/nFymlf2VmYobRO0F2VtZolEaIPDri6tc9ViLrjI7c4+HtMWaCTwefGji2fdw20PHxO3BsQ0trk00f0NRa+F0ZXTUHum10cVoObgcc2x34/C4DX587LY9/AYbT96MIp/FSAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Untitled"
+        title="Untitled"
+        src="/static/d7d9951df473c4a7e0374afe8e81171c/9516f/Untitled.png"
+        srcset="/static/d7d9951df473c4a7e0374afe8e81171c/e9ff0/Untitled.png 180w,
+/static/d7d9951df473c4a7e0374afe8e81171c/f21e7/Untitled.png 360w,
+/static/d7d9951df473c4a7e0374afe8e81171c/9516f/Untitled.png 538w"
+        sizes="(max-width: 538px) 100vw, 538px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+</li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 18.88888888888889%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAAAsTAAALEwEAmpwYAAABKUlEQVQY0xXKyUoCAQCAYR+om9egpJfo0jmCHkEqiiK1Sx2iCKljWaQVWYLLIcvUXGJkFLeScRiXGUcdl5mI/vDw3T5bs19jxjB7DKd/dIcmvZGFMrBQDYueYaIZFg1tityboOhTlL6JOjTRRyatgUVnOHsW+vgHmze8hje8TrmVoNqa4LoTcd8XeSurXMRqbFwXOItUiZe67AVEdv0i/tcKR8ESTl+BUF7Bn5JwXgkEs01sB74F3JeL5L4DJGsqDleK+f0UN0mJ1fNP7DspVk5zBNJNljxpHJ4PDh8Elo+zzG0mOInU2botYd9+x/NYwZapP5GpP6ONZTTjl6ggExMUJHVMrq4SFRQy1S5NbUyi1CZebFOTNbLVDi9ii6+2gdDQCeVlipLOP1bdDR4Pw5q9AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="6"
+        title="6"
+        src="/static/2488ba758631fef2c6d0281746a48a58/37523/6.png"
+        srcset="/static/2488ba758631fef2c6d0281746a48a58/e9ff0/6.png 180w,
+/static/2488ba758631fef2c6d0281746a48a58/f21e7/6.png 360w,
+/static/2488ba758631fef2c6d0281746a48a58/37523/6.png 720w,
+/static/2488ba758631fef2c6d0281746a48a58/bb2fd/6.png 1058w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<h3 id="1-based-on-randomly-initialized-inrs" style="position:relative;"><a href="#1-based-on-randomly-initialized-inrs" aria-label="1 based on randomly initialized inrs permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>1) based on randomly initialized INRs</strong></h3>
+<p>[ Stage 1 ] Overfitting</p>
+<ul>
+<li>
+<p>overfit the INR $f_\theta$ to a data sample</p>
+</li>
+<li>
+<p>overfitting to emphasize that the INR is trained to only represent a single image</p>
+<ul>
+<li>
+<p>Given an image x and a coordinate grid p, we minimize the objective:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 239px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 19.444444444444443%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAzElEQVQY053O0WrCMACF4b7/I02tzIJziVNjtwkKdTCtaFlS1lbbJs0/LOxuV/uvDpybLwDw3uOcw1pH13U09Y2yut4vsizDdR2/lWVJa12/v7SmbhrqusZaS57nBHhPrJYMRiNmQiAXK8bhgGg6Y71WCCkRck40eWT6LFFKMYkivosCKZ6QKmYcDnkYhrxuNgR3XVEUveTzcKC63ljMBbvkg6oq0Vqz3e5YLV+I3957lTEarQ2n9MjpfCHZJxzTFG0MAX9kjKFpW/7TD2u7K+oAEjFSAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="7"
+        title="7"
+        src="/static/41714302833caab76b141cca7690f477/4a279/7.png"
+        srcset="/static/41714302833caab76b141cca7690f477/e9ff0/7.png 180w,
+/static/41714302833caab76b141cca7690f477/4a279/7.png 239w"
+        sizes="(max-width: 239px) 100vw, 239px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Mean Squared Error (MSE) as the loss function to measure similarity</p>
+<p>*$x_{ij}$ is the color vector of a single pixel</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 353px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 26.111111111111107%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA6ElEQVQY042Q0WqDQBBF/f8fSx8aSKob3VVoNe3aaipqNRtd9ZS1wYfSh14YGObCncvxuGtZFv7SPI08p9m653nOaCfmed78cRyxdmKZZ+q6xnNBxpjVnKZpnZsxdF33E6Jf8cUJrd84HI581jX7/SNxHHMbLWVZEMmIQAhCKfGMueIHPg+7HcdAoOKYJEmQStG2LVmaEkrFx7vmyQ/46nqKoiDLMsIoIktfkCrmfD6jtcZjWRiGgaqq6Pp+a2mtXRu2bYNSirK8rK3qptkQiZNARiF5UW4IPP4h98Dpekfjwn4zd1zd7Rs8h33RZxA7yQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="8"
+        title="8"
+        src="/static/dcae8af3f91a8898dcb5e84bed5efdc2/6c115/8.png"
+        srcset="/static/dcae8af3f91a8898dcb5e84bed5efdc2/e9ff0/8.png 180w,
+/static/dcae8af3f91a8898dcb5e84bed5efdc2/6c115/8.png 353w"
+        sizes="(max-width: 353px) 100vw, 353px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+</li>
+<li>
+<p>Regularization</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 397px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 10%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAhUlEQVQI1x3L3Q6CIACAUd//yZpbS+Uqf2oic5NUQERCL762zv3JrutiHEec9+y7Z1kWPvNCjJHzTGitSenEOYf3HuscxlqMMYQQCEdgNSu9lBzxS5ZSouta5KAYZI8QFfdS/MO2OZq24ZbnCCHQ00T7evMoCp51jZ5nrLVINVBWJb1S/ADFTZTOsBocDgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="9"
+        title="9"
+        src="/static/3523acd93d70a887cf0658d508005790/4c04a/9.png"
+        srcset="/static/3523acd93d70a887cf0658d508005790/e9ff0/9.png 180w,
+/static/3523acd93d70a887cf0658d508005790/f21e7/9.png 360w,
+/static/3523acd93d70a887cf0658d508005790/4c04a/9.png 397w"
+        sizes="(max-width: 397px) 100vw, 397px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<ul>
+<li>apply L1 regularization to the model weights → 중요한 특성만 남기기위해 정규화</li>
+<li>L1 loss has the property of inducing sparsity</li>
+<li>limiting the entropy of the weights (apply this to an INR, not decoder)</li>
+</ul>
+</li>
+</ul>
+<p>[ Stage 2] Quantization</p>
+<ul>
+<li>To reduce the memory requirement, we quantize the weights using the AI Model Efficiency Toolkit (AIMET)</li>
+</ul>
+<p><a href="https://github.com/quic/aimet">GitHub - quic/aimet: AIMET is a library that provides advanced quantization and compression techniques for trained neural network models.</a></p>
+<ul>
+<li>
+<p>each weight tensor such that the uniformly spaced quantization grid is adjusted to the value range of the tensor</p>
+<p>(균일한 간격의 quantization grid가 tensor의 범위에 맞게 조정되도록 weight sensor에 특정 quantization을 수행)</p>
+</li>
+<li>
+<p>The bitwidth determines the number of discrete levels</p>
+<p>Ex) quantization bins</p>
+<p>(비트 너비에 따라 discrete level의 수가 결정)</p>
+<ul>
+<li>range of 7-8 lead to optimal rate-distortion performance</li>
+</ul>
+<p>(7,8일 때가 적절한 값이었다)</p>
+</li>
+</ul>
+<p>[ Stage 3] Post-Quantization Optimization</p>
+<ul>
+<li>
+<p>Quantization reduces the models performance by rounding the weights to their nearest quantization bin</p>
+<ol>
+<li>AdaRound(Adaptive Rounding) : a second-order optimization method to decide whether to round a weight up or down (웨이트를 올릴지 내릴지 반올림을 결정하는 2차 최적화 방법이다)</li>
+</ol>
+<p>→ AIMET Toolkit에 있음</p>
+<ol start="2">
+<li>Quantization Aware Training (QAT) : aims to reverse part of the quantization error, rely on the Straight Through Estimator (STE) for the gradient computation → bypassing the quantization operation during back propagation</li>
+</ol>
+<p><a href="https://www.notion.so/Quantization-Aware-Training-962de288396f426cbe92d5a5868f9bd2">Quantization Aware Training</a></p>
+<p>(학습을 통한 quantization을 simulate, traning 과정 중에서 quantize 수행. Fake quantization node를 첨가하여 quantize되었을 시 어떻게 동작할지 시뮬레이션)</p>
+<p>cf ) <a href="https://pytorch.org/blog/introduction-to-quantization-on-pytorch/">https://pytorch.org/blog/introduction-to-quantization-on-pytorch/</a></p>
+</li>
+</ul>
+<p>[ Stage 4] Entropy Coding</p>
+<p><a href="https://github.com/fab-jul/torchac">GitHub - fab-jul/torchac: Entropy coding / arithmetic coding for PyTorch</a></p>
+<ul>
+<li>perform entropy coding to further losslessly compress weights</li>
+</ul>
+<p>(Data entropy를 기반으로 작동한다는 것은, 압축률이 데이터 내에서 각 소단위(bit, byte)들이 출현하는 빈도와 관련된다는 것 ex) huffman coding)</p>
+<ul>
+<li>binarized arithmetic coding algorithm
+<ul>
+<li>arithmetic coding : 전체 메시지를 0과 1 사이의 실수 구간으로 나타내는 coding</li>
+</ul>
+<a href="https://www.notion.so/Arithmetic-coding-951c90dfd3f14a94b6ae002bfcb1871e">Arithmetic coding</a></li>
+</ul>
+<h3 id="2-meta-learned-initializations-for-compressing-inrs" style="position:relative;"><a href="#2-meta-learned-initializations-for-compressing-inrs" aria-label="2 meta learned initializations for compressing inrs permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2) Meta-learned Initializations for Compressing INRs</h3>
+<p><a href="https://github.com/learnables/learn2learn">GitHub - learnables/learn2learn: A PyTorch Library for Meta-learning Research</a></p>
+<ul>
+<li>
+<p>Directly applying INRs to compression has two severe limitations</p>
+<ol>
+<li>
+<p>requires overfitting a model from scratch to a data sample during the encoding step</p>
+</li>
+<li>
+<p>does not allow embedding inductive biases into the compression algorithm</p>
+</li>
+</ol>
+<p>(ex)knowledge of a particular image distribution)</p>
+<p>⇒ meta-learning (Model Agnostic Meta-Learning (MAML))</p>
+</li>
+<li>
+<p>Model Agnostic Meta-Learning (MAML)</p>
+<p><a href="https://www.notion.so/MAML-e686975eeffd4b099d0b6e24fe1325b5">MAML</a></p>
+<p>learning a weight initialization that is close to the weight values and entails information of the distribution of images</p>
+<ul>
+<li>
+<p>previous aimed at improving mainly convergence speed</p>
+</li>
+<li>
+<p>The learned initialization $\theta_0$ is claimed to be closer in weight space to the final INR</p>
+</li>
+<li>
+<p>the update $\triangle \theta = \theta - \theta_0$ requires less storage than the full weight tensor $\theta$</p>
+</li>
+<li>
+<p>The decoder can then reconstruct the image by computing:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 266px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 18.333333333333336%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAu0lEQVQY03WQQYvCMBSE+/9/k6Yii1e73eJhEdSkh6QN1Co0JWnyidXedC7zGN48Zl4Wgsf7wEekNNNrx7+lRIyRb8jKskQ3DSEEjNFUh8PTRnft8GHiePznt9ijbTcbnBv4qyrcOOLcyP1+Q9U1TWPQxpDtiwJtNFJKlFKsxJrL+YSqJba7kos1Ihfo1s4HRzfw9FhruUhJa1s22y27nw0rkZN9ir1USjHOyRctvV+w8DL3fc8wOKZp4gGYhzDMrDgl4AAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="10"
+        title="10"
+        src="/static/56db9c12059d2964ee51f63bfb753763/b4ffe/10.png"
+        srcset="/static/56db9c12059d2964ee51f63bfb753763/e9ff0/10.png 180w,
+/static/56db9c12059d2964ee51f63bfb753763/b4ffe/10.png 266w"
+        sizes="(max-width: 266px) 100vw, 266px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<ul>
+<li>$\tilde \theta$ 가 의미하는 것 → reconstruct된 weight</li>
+<li>$\hat x$ 가 의미하는 것 → $\tilde \theta$ 에 의해서 reconstruct된 이미지</li>
+</ul>
+</li>
+<li>
+<p>the learning of the initialization is only performed once per distribution D prior to overfitting a single image</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Integration into a Compression Pipeline</p>
+<ul>
+<li>
+<p>encode only the update $\triangle \theta$</p>
+<p>(변화된 $\theta$만 인코딩해주면됨)</p>
+<p>During overfitting we change the objective to:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 406px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 8.333333333333332%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAfklEQVQI1yXMQQ6CMBBAUe9/NjUiCS6YwrTTFhsIkJLg8pvo4m3fZVkWSnnjVBEnqPfUWn9Eekb1WIyYGdu6MqgyjCMyOEop1KNiIaDB82gaLnmaiDESzHi2LSlnjuMfBq9cb3d658g5k1Ii5UTXvRDn2Pad83OyzDMhGiLCF2vKkqHY7cwYAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="11"
+        title="11"
+        src="/static/ce417428bc3b7d57ab4689a3e1993507/e33ef/11.png"
+        srcset="/static/ce417428bc3b7d57ab4689a3e1993507/e9ff0/11.png 180w,
+/static/ce417428bc3b7d57ab4689a3e1993507/f21e7/11.png 360w,
+/static/ce417428bc3b7d57ab4689a3e1993507/e33ef/11.png 406w"
+        sizes="(max-width: 406px) 100vw, 406px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>→ the regularization term now induces the model weights to stay close to the initialization</p>
+<p>we directly apply quantization to the update $\triangle \theta$</p>
+</li>
+<li>
+<p>perform AdaRound and QAT, we apply a decomposition to all linear layers in the MLP to separate initial values from the update</p>
+<p>(AdaRound와 QAT를 수행하면서 업데이트된 값으로서부터 초기값을 분리해주기 위해 MLP에 있는 모든 선형 레이어에 decomposition 분해를 해준다.)</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 421px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 24.444444444444443%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsTAAALEwEAmpwYAAABFklEQVQY012O226CQABE+f+fqj5I1SgKImATAUHwBsqyLHJJPU1JmqadZDIPZzIZzbY3RPGRtm05n06UskJKiWma3G43uq7jer2w2VjsgxAhBE3TEMUxoihou47wcCCOj0NXC8KAJE0RpSBNU2SlKGWJ6zqcLxeUqkmTBD8IiaKILMsQosT3fZIkoVKK/d4fRru+R+OfmuZJnt9ZrVYck4Qsz2nalsD3ye93pKwIw4ClYeDtPgZWFA8s2x6Oaa/Xi19/DpnnGfP5DF3XMS2LtWkyGo0IwgPP5xPDMND1dxaLBVvHYTp9ZzKZ4Lje34ffYz+plEJVEm+341EI6rqm7/uBe57L23jMar3G3m5ZLpfM5jOErPgC2gRzAj/BbFoAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="22"
+        title="22"
+        src="/static/ab7f571aedd157a13109ec03e8b8a2b2/092ed/22.png"
+        srcset="/static/ab7f571aedd157a13109ec03e8b8a2b2/e9ff0/22.png 180w,
+/static/ab7f571aedd157a13109ec03e8b8a2b2/f21e7/22.png 360w,
+/static/ab7f571aedd157a13109ec03e8b8a2b2/092ed/22.png 421w"
+        sizes="(max-width: 421px) 100vw, 421px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<ul>
+<li>optimizing the rounding and QAT require the original input-output function of each linear layer</li>
+</ul>
+<p>(rounding과 QAT는 원본의 Input, output 함수의 모든 선형 레이어에서 최적화)</p>
+<ul>
+<li>Splitting it up into two parallel linear layers, we can fix the linear layer containing W0 and b0 and apply quantization, AdaRound and QAT to the update parameters $\triangle W$and $\triangle b$.</li>
+</ul>
+<p>(W0와 b0, 초기값을 고정하면서 동시에 quantization AdaRound, QAT를 통해 파라미터들을 업데이트할 수 있다.)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="experiments" style="position:relative;"><a href="#experiments" aria-label="experiments permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Experiments</h2>
+<h3 id="datasets" style="position:relative;"><a href="#datasets" aria-label="datasets permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Datasets</h3>
+<ul>
+<li>Kodak dataset</li>
+<li>DIV2K</li>
+<li>CelebA</li>
+</ul>
+<h3 id="metrics" style="position:relative;"><a href="#metrics" aria-label="metrics permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Metrics</h3>
+<ul>
+<li><strong>bitrate</strong></li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 500px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 17.77777777777778%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAtklEQVQY03WO227CMBBE8/+/Vh7AlzjFwQ42omkqIqOIKMgopyJSpUYt87izZ2YK/tF4u7G3NXtriTHgvEfrEqkU3VdHjCfq+sB2K7hc+hVb1NayE5L3qsI3gWmaSClRlgalNN45hJTshEBpjXMO5zwhRqRUfLTtEmStZfO2oej7nqY5EkKg/ewYx5GcH6vWYRgwxhCPDeF0Xm7zPK9+nssrU1LwQk/gB8o5L0XXlJju9z/+7/BvFQwu1biv0BIAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="13"
+        title="13"
+        src="/static/72a6b05a1ed6f685709c0776a5f5a302/0b533/13.png"
+        srcset="/static/72a6b05a1ed6f685709c0776a5f5a302/e9ff0/13.png 180w,
+/static/72a6b05a1ed6f685709c0776a5f5a302/f21e7/13.png 360w,
+/static/72a6b05a1ed6f685709c0776a5f5a302/0b533/13.png 500w"
+        sizes="(max-width: 500px) 100vw, 500px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>the number of pixels W H of the image</p>
+<ul>
+<li><strong>PSNR</strong></li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 474px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 20%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAvklEQVQY042Q3UrEMBCF+/5P5U8XRK/awnplim66dqVNlsa0SW3zyQS8EQQPHBhm5sycmSKlxL7vJGFK/IUQAp/e5x57tTlnrM3aH0itmL3nUJY8PD5xVx4YxxHnHC9KoVSLalvMaDif3zHGMM8zwzAQY+T09krcdtawcHtzT1U3FNu24SbHNE1ZIE7WdcV7nylifdJ0XUff99RNQ1XVHI/PaK35koExcrl8YOyVgn9CzhF3slDchWXJ8e83fQPJljLUslhtPgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="20"
+        title="20"
+        src="/static/2a42d577c8b5e7a17bcaaca2cb125a16/5595f/20.png"
+        srcset="/static/2a42d577c8b5e7a17bcaaca2cb125a16/e9ff0/20.png 180w,
+/static/2a42d577c8b5e7a17bcaaca2cb125a16/f21e7/20.png 360w,
+/static/2a42d577c8b5e7a17bcaaca2cb125a16/5595f/20.png 474w"
+        sizes="(max-width: 474px) 100vw, 474px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<h3 id="baseline" style="position:relative;"><a href="#baseline" aria-label="baseline permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Baseline</strong></h3>
+<ul>
+<li>Traditional codecs : JPEG, JPEG2000, BPG</li>
+<li>INR-based : COIN (1)</li>
+</ul>
+<p>(1) Emilien Dupont, Adam Golinski, Milad Alizadeh, Yee Whye Teh, and Arnaud Doucet. COIN: COmpression with implicit neural representations. Neural Compression: From Information
+Theory to Applications – Workshop (ICLR), 2021.</p>
+<p><a href="https://github.com/EmilienDupont/coin">https://github.com/EmilienDupont/coin</a></p>
+<ul>
+<li>RDAE-based : Balle’ (2), Xie (3)</li>
+</ul>
+<p>(2) : Johannes Ball e, Valero Laparra, and Eero P Simoncelli. End to end optimized image compression. International Conference on Learning Representations (ICLR), 2017.</p>
+<p>(3) : Yueqi Xie, Ka Leong Cheng, and Qifeng Chen. Enhanced invertible encoding for learned image compression. ACM International Conference on Multimedia, 2021.</p>
+<p><a href="https://github.com/xyq7/InvCompress">https://github.com/xyq7/InvCompress</a></p>
+<h3 id="optimization-and-hyperparameters" style="position:relative;"><a href="#optimization-and-hyperparameters" aria-label="optimization and hyperparameters permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Optimization and Hyperparameters</h3>
+<ul>
+<li>use INRs with 3 hidden layers</li>
+<li>sine activations combined with the positional encoding using $\sigma$(scaling parameter)= 1.4</li>
+<li>Kodak dataset (higher resolution) → set the number of frequencies L = 16</li>
+<li>CelebA → L=12</li>
+<li>M : the number of hidden units per layer,
+<ul>
+<li>the width of the MLP → to evaluate performance at different rate-distortion operating points</li>
+<li>CelebA : M $\in$ {24,32,48,64}</li>
+<li>Kodak : M $\in$ {32,48,64,128}</li>
+</ul>
+</li>
+<li>optimal bitwidth
+<ul>
+<li>basic : b=8</li>
+<li>meta-learned : b=7</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-comparison-with-state-of-the-art" style="position:relative;"><a href="#1-comparison-with-state-of-the-art" aria-label="1 comparison with state of the art permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. Comparison with State-of-the-Art</h3>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 552px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 51.11111111111111%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABtklEQVQoz2WSDY/iIBCG/f9/7i67Wdes3qr1o1pKKZSWAq3PBfTMxiOZDiXhmXmHdwHgnGMYBoL3+EeMfsw5+ED0AecGrOsJMfK6brfbc79IH6UUdV1nsLWWvu8Z+oHROWQrubaSor5QNgIpBbcH5F+kNc9z3mdggmitmaaJEAIxBPTQIQfDRUtaq2hVTadqmvqKd4b9fs/b+xuH4xFrO2KcMnQRY6QsS7QxzHHKsq62oZQlSitMXaGqBl0J5k7mM+08u92Oa1VRpRAV0zzfgUa3vH98ZIlmtOzFkdNhhziUqPMFURwxV0HXtAyNphGKtu4oDgXrzRohBINzT9mLNKeiONB2muV2xfb3Crk9oS5nTF1jpGKwDmt6Qoho1eJVmzv8Wn+x/rN5yLZ5ZM8Zbg4nvn+t0WWFVoLBJsDEOI7EGHKe5gmtW9qmZPm5ZLn6pCzPlJdLjuSKDDRdx3Z3wjaG3srcSZptqpitEwJ+9Pm/s5Y4z/cz7/+zTwZKKTnuTmitaBqB0SbbKL18mlFSkHKyU7LYK+SnfTIwVZ5v91eapjlLLIqC7+13LpZW6ihdSp3/hLzGX8+EAPOA+Bs6AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Kodak dataset"
+        title="Kodak dataset"
+        src="/static/810b5fea3d59582d300de4d98bb7ab19/08c0b/kodak.png"
+        srcset="/static/810b5fea3d59582d300de4d98bb7ab19/e9ff0/kodak.png 180w,
+/static/810b5fea3d59582d300de4d98bb7ab19/f21e7/kodak.png 360w,
+/static/810b5fea3d59582d300de4d98bb7ab19/08c0b/kodak.png 552w"
+        sizes="(max-width: 552px) 100vw, 552px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>Kodak dataset</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 540px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 51.66666666666666%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABoElEQVQoz4WSCa/bIBCE8///Xy71NYcTO7VjLgO2ATtfBVGfeqlFQivQ7uzs7GxSSmitGccR7/3nncaRwTlc/s/RuZKzLAv5vF6vv95NTpBKEUIgxlhiihE3z8hpQhuDHQwhJuYwF9B/nc26rgghyEwz4JISY4yoaWYwmkF0TGEleMU49Hg/EGbPtao4nU9Y50ptJlYY9qKn7/tPMDd52kFhtMBIiegG9LeGWTQE51HDgFSSw/HItbpyu98LoWVZeb1WNvv9nu75LGB2dNxUh5Q9Xd0hqzu+q0mTI8SFOUas0pi+51JVKKV+GbcwrOuaPneIkcYKnqLlWbXouiEMHTEl0roSQyDEgFEWJTTb3ZbtbsfheKBuHkXrLN8moxqtMZPl0j1o9pfCKs6GmNb3klIqMYSI1j1CPgpYJmOtLUtVWr8Bs3aZ+l21VLuvBWxZJ5aVIkMGy4lZ9JQi0zT9ZBv+HDmPcm9qbo+a9lZhrEDrASkFxhiklFhnS9P8zn78Ufy7Hz9tk7tmJnN8e7FtWz4+vnA6n/F+LOPmnBz/Z+zvAFADdI4cbYQAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="CelebA dataset"
+        title="CelebA dataset"
+        src="/static/9ad6b561989e8aa99e4cad4302b72fff/07484/celeba.png"
+        srcset="/static/9ad6b561989e8aa99e4cad4302b72fff/e9ff0/celeba.png 180w,
+/static/9ad6b561989e8aa99e4cad4302b72fff/f21e7/celeba.png 360w,
+/static/9ad6b561989e8aa99e4cad4302b72fff/07484/celeba.png 540w"
+        sizes="(max-width: 540px) 100vw, 540px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>CelebA dataset</p>
+<p>전체 비트 범위에서 basic 방법만으로도 이미 COIN 보다 좋은 성능을 보임</p>
+<p>CelebA의 높은 비트 범위대를 제외하고는 대부분 JPEG보다도 좋은 성능을 보임</p>
+<p>meta-learned 가 basic보다 결과가 좋음</p>
+<p>두 데이터셋을 비교했을때, 차이가 눈에 띄게 나는 것은 CelebA 데이터셋임</p>
+<ul>
+<li>낮은 비트에서는 meta-learned가 JPEG2000 성능에 도달하나 높아질수록 도달하지 못함</li>
+<li>낮은 비트에서는 meta-learned가 autoencoder(factorized prior)에 거의 도달함</li>
+</ul>
+<p>높은 비트에서 확실히 autoencoder의 장점이 명확히 나타남.</p>
+<p>SOTA RDAE만큼 BPG도 두 데이터셋 모두에서 좋은 성능을 보임</p>
+<h3 id="2-visual-comparison-to-jpeg-and-jpeg2000" style="position:relative;"><a href="#2-visual-comparison-to-jpeg-and-jpeg2000" aria-label="2 visual comparison to jpeg and jpeg2000 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. Visual Comparison to JPEG and JPEG2000</h3>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 30.555555555555554%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsTAAALEwEAmpwYAAABt0lEQVQY0zXK308SAQDA8fu3ehVoNstQUixCwEwgBDTj1A6Mwylj5ShXs9aPLZ3rqa1a6daKh8o252LUAi1ucFwYCSrLNmoe89tm6/v42Veo7u6R136QyeXJKhrFzRpabY/85jbpjQJZrYqyVadcrfO1VGE1nSWnaKjftylv7ZBZV1jLZMnkFArlKsLCsxQ9QRmfnMAVuYp3cpb47Xn8ARHxShT3uMxQLM703COcoTiDkzP0RZIE4nPItxY4OyzjjSZwSAk8sesI83dvYms9wlTEhc9nZ2RsiOmJMRwWI7Gog8AFJyHRjywGcFsMTIX7cbtdjEohJi568VpNxKQ+znudDIt+hPt3Zjl9wkDvKRPdllY8/TYk6TJWi5GuLhPdVjMDHjsRMYiz4xj2ThM2azt+twPp0iB281FsnUZ6z5gZONeD8O75Em2GFp48fUHzAPQDWF5cxNJi5NXSa9RSiUbjD4/vPcDcdpxU6g0FVaXxe5+HySQd7Sd5v7JKQS1R//kL4dt6jmvjQTY+feR/SvoDibBE8YtCs6kf2ueVt8yERygXVXR9/9DWXi5zIzpKrVJB1/99fwEQKFYae6Hi1gAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="meta-learned vs. JPEG vs. JPEG2000 (Kodak) 14"
+        title="meta-learned vs. JPEG vs. JPEG2000 (Kodak) 14"
+        src="/static/5e6c62eb8b14762c34caba50cdebba1d/37523/14.png"
+        srcset="/static/5e6c62eb8b14762c34caba50cdebba1d/e9ff0/14.png 180w,
+/static/5e6c62eb8b14762c34caba50cdebba1d/f21e7/14.png 360w,
+/static/5e6c62eb8b14762c34caba50cdebba1d/37523/14.png 720w,
+/static/5e6c62eb8b14762c34caba50cdebba1d/302a4/14.png 1080w,
+/static/5e6c62eb8b14762c34caba50cdebba1d/5a3c9/14.png 1169w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>meta-learned vs. JPEG vs. JPEG2000 (Kodak)</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 578px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 58.88888888888889%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsTAAALEwEAmpwYAAADGUlEQVQoz02T61MbZRSH949yxg9ePjgda1vRaMdaRW5pwCHUtOklOBmdUSpFW6W1IG0ZApUSQsQCKaEtauuITVvFaYcSnFxICNllgW4Simsum03yONlax/Pp/Z135pz3POf9CQClUgkllWIrk+FpFItFRFFE0zRD68Uisiyzvr5OOp2mUMijKArKo0ekUynS6RTpTAZB13Xy+TzhcBhJEo2zphXJ5bJEImFUVTWKZrNZVpNJ4rEYGxsbqOpfiKJEMikSi8VIrq6yJssIUGFmeoqaF5+lr/sUma0t1L9Vvv6yi5oXnuGHGT/ZXA5pTcLW3Ih5bw2hUIhiUUeWJQ41N9Bg2sVSMGg0FlKP89jrzbhqd3CmeS/ymsj9ByFaX3kZd9MeLjhtaGUYGb6Cc+fzXDLvYWr4ooFh0OXBufM5PC01ePt70CsgSFIG17HjzDmauHq8CSkR4Y/AIpdaG7ntMOPrtLOd17g6+D1Ttve4Za/nV/cFSsD00DiTtjp+PlLHzeEeCqUKgl7Icf2bbi43mBhztqBU4UoSbqeNsUYT186fpFAqE52/w7fv1zJy4DXmb05TAcK/B3A17+fyARP3bkyil0HYVlVOdX7GFYeV3o8dLASXWApH6Dp2lIl2K31nTrOpKPhnb9B7qBWPw8rIqNvY+rjPx9kPWvC0WxlwDRjbF6os7nq9nNv/KlOffMT2pkJJ0xjv+pSeujf55WI/5XKFdEJkoK2FIfPbPLw+azBMxVfpb7MwaHmH4OyPRk4oa+A7eYIBy25+OryPzblbZBWVPuu7jLe9ztxRM3l5g/jdB/TU72b68FvMd7ZXPwfR279xrn4Xfvs+5j//EAo6QvXivtfD+dqXmGu3kA4uUdHh2hcdjFp2sPBVB9qWiiquM2JvYOagidiwy3jN9orI6JFG/AffYNk9ZDQxRtYyj1nwTbD5cPE/p4QDAca6OlgM3DN0FcOdiQn8vWdJhGNGrlzUmfvOy2T3aZLR+JORK5UK/4+nWpTXCEVjBEOhJ1bUiyRlmVB0mVgi8a89NVaSSf6MLBNPrBgF/wF45Q2lVvV8EgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="meta-learned vs. JPEG vs. JPEG2000 (CelebA) 15"
+        title="meta-learned vs. JPEG vs. JPEG2000 (CelebA) 15"
+        src="/static/151d26b99b78c5ffab8c74b6657a4a36/508ef/15.png"
+        srcset="/static/151d26b99b78c5ffab8c74b6657a4a36/e9ff0/15.png 180w,
+/static/151d26b99b78c5ffab8c74b6657a4a36/f21e7/15.png 360w,
+/static/151d26b99b78c5ffab8c74b6657a4a36/508ef/15.png 578w"
+        sizes="(max-width: 578px) 100vw, 578px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>meta-learned vs. JPEG vs. JPEG2000 (CelebA)</p>
+<p>바로 보았을 때 JPEG보다는 결과가 상당히 좋다는 것을 확인할 수 있음</p>
+<p>둘 다 JPEG, JPEG2000보다 작은 비트 레이트임에도 디테일적으로 화질이 괜찮고, artifact(잡음)이 감소함</p>
+<p>특히 kodak 결과에서는 같은 distortion결과에 meta-learned가 더 작은 비트레이트에서 도달했음</p>
+<p>시각적으로 JPEG2000이 edge 부분과 높은 frequency 영역에서 artifact 잡음이 많이보였음</p>
+<p>그렇지만, 하늘부분은 JPEG2000에서 더 잘 렌더링되었음 → our model introduces periodic artifacts</p>
+<p>CelebA 데이터셋에서는 JPEG2000에 비해 비트레이트는 더 적게, PSNR은 더 높은 결과를 보임 (더 적은 비트에서 좋은 화질의 결과를 얻을 수 있었다.)</p>
+<p>JPEG2000이 edge 부분에서 artifact가 보임(배경의 글자 부분)</p>
+<p>얼굴 영역에서 밝은 부분에서 어두운 부분으로 더 smooth → more natural tonal transition (자연스럽게 톤이 변화됨)</p>
+<h3 id="3-convergence-speed" style="position:relative;"><a href="#3-convergence-speed" aria-label="3 convergence speed permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. Convergence Speed</h3>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 631px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 53.333333333333336%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB/UlEQVQoz32T+Y7TMBjE+/6Pw/88AGKBReqR7Tal3VbtNsk2ju8jzg/FgJAQMNLIh+z5Do8XxhiUUmitC42ZaXi73+kHhVEGIyVKtEjZkVIk55EYIykl8jQxY5qmwkXf9zjniDGQxoT1nl4oZNcR2iP+8gkn9kR9wViNVgPea7bPW9abNS+nU0loDlAEh2HAO8c4TWhtEZcT4bbD3j6h+keEO2GSxOeA8RohLGIIVNWa5XJZuNpsSlUzFtfrlThOyKblXr1HtR/o1YYhNLgccMETfpbnrEU4y907ds9b6nrH03bL827HrWl+CB5eznjR0lTvEH7HEDpizpiYceOIiQmZRsac8S5gncC6ltVqTb2v2VQV1VPFt8OBuZuLl9OV18uS1h65e410gd5HBufpbeQ2BISJmBhptUVLiR0Ej18fqZ6eWK6WHI/H0ssQAgslJcJFXo3jIjSdHmlk4ipSmfc6Id1IKBk6lLfIYNnvaw7HA/V+X1oyI+fMQvQ9dxk5dJZGBYQdCSmVVxvHkTwmyCNTzjgfcPqOUw0fHx5Yrdd8fvzC6+32W7DrOm5vA+2gcLMHlSw2stZinWOYPah+eFQIgbeW5D1N25Z19/aGVLKIFcH5oPcOrRTO+XLxfD5T1zWn86nYYeYc5Jc1/ofF3zbn7KRSZfwTv37Ev/gd0gNKK+HzET8AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="16"
+        title="16"
+        src="/static/f241b34f850072739c8461599638945b/4597d/16.png"
+        srcset="/static/f241b34f850072739c8461599638945b/e9ff0/16.png 180w,
+/static/f241b34f850072739c8461599638945b/f21e7/16.png 360w,
+/static/f241b34f850072739c8461599638945b/4597d/16.png 631w"
+        sizes="(max-width: 631px) 100vw, 631px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>In the beginning of the overfitting</p>
+<p>overfitting이 시작될 때에는 meta-learned가 가장 빨리 수렴되었음.</p>
+<p>meta의 첫번째 3epoch는 basic의 50epoch보다 좋은 결과</p>
+<p>각 모델의 최종 성능에 가까워질수록 수렴속도가 느려지지만 meta-learned 방식은 이점을 유지</p>
+<p>: It achieves the same performance after 2500(meta-learned) epochs as the basic approach after 25000(basic) epochs → 학습  속도를 90% 단축해서, 빠르게 할 수 있음</p>
+<h3 id="4-number-of-layers-and-hidden-dimension" style="position:relative;"><a href="#4-number-of-layers-and-hidden-dimension" aria-label="4 number of layers and hidden dimension permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. Number of Layers and Hidden Dimension</h3>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 43.333333333333336%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsTAAALEwEAmpwYAAABtklEQVQozz2S246kMAxE+f+fW2nnaXuGoXsbGgYSIORGEuCMkr1EsizZpbKrnEobg/ce5xxKKayxOLdhncHve6nvf7MpPYveNMZZlJXYHEritGFdFqpt2zjPE2dtAS12xJiB3UyEVeLUinceYy2hEO/MZmWUNet4xyvBrhaitcxSUgkpOdLBKBcG+UCJB7ua8UYT90CKEbVtSCnYQ6B/PWjbGq9XUoiEmIjpKEtlhVU/fDGrmfr9B36bscaxh8hxnIQUSedB27a0Xcfw1fFs3jhTxPsda20ZGFMkpMCSJY+ToG7e8GYpgNv7jY+6Zl5WjmSZ5wEpZ+Z1pf74SQyu4O73hl+3G5MQhJB9HXn1A1X9+I0QL2I66YVmWRdSSoQYOfedeRox1tCPM19Tz3kmptWTF0l5sxg5QsAsM/0wUHWvHqUWlNpYtGYsBBatdclZRggBIQRCjOQjrsYwTlPxzBjDpnUJmY9yXSfXdWGtwRpD03zy7Lpy0eP4Y3Z+OV8XRa7Rmq5r+Ww+y9eKMRaOHFUG50Lf9zRNQ/t8Mk2ikJ/nVcgy8F8ex7H497jf6fuhDHDO/+9/AwMNsQXkTLz3AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="17"
+        title="17"
+        src="/static/fd1d883cd388f819309235de9037961d/37523/17.png"
+        srcset="/static/fd1d883cd388f819309235de9037961d/e9ff0/17.png 180w,
+/static/fd1d883cd388f819309235de9037961d/f21e7/17.png 360w,
+/static/fd1d883cd388f819309235de9037961d/37523/17.png 720w,
+/static/fd1d883cd388f819309235de9037961d/f1d1f/17.png 739w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>*hl = hidden layer</p>
+<p>MLP의 depth, width 둘 다 직접적으로 파라미터 수에, 간접적으로 bitrate에 영향을 준다.</p>
+<p>→ network를 scaling up하는 방법이 2가지 있음</p>
+<p>hidden unit과 hidden layers의 조합을 위해 rate-distortion performance를 측정</p>
+<p>bitrate는 게속 증가하지만 PSNR 증가는 작은 폭이다.</p>
+<p>더 많은 수의 hidden layer에 대한 flatting은 낮은 bidtwidth b=7에서 pronounced(확연하게 나타나게)된다.</p>
+<p>quantization noise는 더 심해지고 depth가 깊어질수록 noise는 증폭되어지고 performance를 제한한다.</p>
+<p>rate-distortion performance scale은 model의 width와 더 많은 관련이 있다고 결론을 내렸다.</p>
+<h3 id="5-choosing-input-encoding-and-activation" style="position:relative;"><a href="#5-choosing-input-encoding-and-activation" aria-label="5 choosing input encoding and activation permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5. Choosing Input Encoding and Activation</h3>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 43.888888888888886%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABcElEQVQoz3VRi27jMAzL/39jsUPbJNvycuLIluVHOEi9AsMBJ0BwYlOiRHYpJWjmnC2JAmKMEGGkRBBJqLXiX1yMDI6KiWA+EZgQUkTHzFZQcrFG2qRWRquCWjNKLfYeQrCztYZAAce+4fAriHZwCsglI0lCp0ARAdEJZg+OBAoEUUBOiMI20XmeEMlY5gVun8FM1qC2huu6UEtFloxunmdsm4NzE4g8mHUtMUYl0tAtnn2PdVng3DdaiWhF0HJCMWyxyZW4897D7atpdl2wtXSF5/OJj48/WJbFpNi2DfFcUMWjloKSMyRHDOOA2+2GaZpNlpeGJaFlNkZlijHgfr/jOLwRvEyI1qi2l46akpIRr+tq/2paFwMhHqtppxdayOSxO2fr69rvhuYss+H0ZDrhdHJmw1nDouOXaqmX0zTh6+sbem/u/9Xn/a2pBKrn+PlpNfr+xnX4Fc45PB4PjONo7v0vdLphGND3vTn8O34AfBq7KH8j+bQAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="18"
+        title="18"
+        src="/static/efdb011989c407cca4e71c9086b6c3fe/37523/18.png"
+        srcset="/static/efdb011989c407cca4e71c9086b6c3fe/e9ff0/18.png 180w,
+/static/efdb011989c407cca4e71c9086b6c3fe/f21e7/18.png 360w,
+/static/efdb011989c407cca4e71c9086b6c3fe/37523/18.png 720w,
+/static/efdb011989c407cca4e71c9086b6c3fe/302a4/18.png 1080w,
+/static/efdb011989c407cca4e71c9086b6c3fe/07a9c/18.png 1440w,
+/static/efdb011989c407cca4e71c9086b6c3fe/536c7/18.png 1480w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p><a href="https://www.notion.so/Positional-Encoding-ad46de11a7974e36a5e43f7892886d4d">Positional Encoding</a></p>
+<p>Gaussian encoding Model이랑 비교</p>
+<p>hidden dimension과 같은 숫자의 frequency를 사용</p>
+<p>random initialization(regularization parameter <img src="https://latex.codecogs.com/svg.image?\bg{white}\lambda=10^{-6}">)부터 시작해서 Kodak dataset에 hidden dimension($M \in$ {32,48,64,96, 128})이랑 input encoding을 다르게 해서 training 을 시킴.</p>
+<p>높은 bitrate에서 sine이 ReLU를 넘어서는 것을 볼 수 있다.</p>
+<p>Best input encoding은 두 activation에서 모두 Gaussian을 넘어서는 positional encoding이다.</p>
+<p>SIREN 구조에서 ReLU보다 좋았지만 input encoding을 사용하는 모델의 성능에는 미치지 못했다.</p>
+<h3 id="6-impact-of-l1-regularization" style="position:relative;"><a href="#6-impact-of-l1-regularization" aria-label="6 impact of l1 regularization permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>6. Impact of L1 Regularization</h3>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 78.88888888888889%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAACTUlEQVQ4y31TXZPbIAzM//9p7Xs7d+n52uTs2An+BAzYwHZWPruXl2qGiUyk1UpaTjlnrOuKGON/T0rpKW73U86IcfOJdULOGIYBWmt472GtxTzPcM4dfggBTdNInMQYg7AE+U/dr5hnLfnLsuAEAOM4CgBtr7wzz58Fu64TlltMxNBrvL9VaMqbxDCfhU/8ICCr0WcVAjGZwG3bYhonAFna05PHx+8KTa3gfEBMSfL2ToThNE2fDDdWPDSCkR2tUxbl5Y7HrYabrdyxKAk8ARKo77fZ7C0zQBuDvu/krmksipcLnFVHy1+XQztafn19Rdt2cpFlY1GqDUMHH1ZcriPU4451HRETjm0zdh8R77hAASyK4gmQAW2r0I8Ol3cFXZdIkRsMQHYYhh51XaO53+V3X+bB8O2tkDmRFU2bEWXZ4f3bLwRVYZkqpJhhrMZke9ybBufzGSTC36qqUN1uUkBkk2LcZDM7ZGSUf26of5bA4uF8i1XEC/hphL/XsHZGqxS6z66Yy3ZJ6tgyL30IMEOP4vsZMUSsycK5CXFNSDli1h76EeCDl3hjDL4al8pz2oXr1wXVSwH96JCQEXx3iJyvabQW1bipgfHTpA/p7DM8AEUiSqH8UUh7zvVYFiPyEKHHFU7PMI9J2iPDEJZD/MQ4tkwxK6XQ1DWMntB1PcZRwTkrwuayyJQzCy7Im+W7JgB95jKGT9MYu82QdGPcqHvnkEgTkIqc1fV6lcPN8pusaWTGmL314y3v9s/Ph89kgnA+rWqPF7UL+zkP+AvjLdjnPwkf9wAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="19"
+        title="19"
+        src="/static/edf89580d5b9e17ac6ed6b0133804271/37523/19.png"
+        srcset="/static/edf89580d5b9e17ac6ed6b0133804271/e9ff0/19.png 180w,
+/static/edf89580d5b9e17ac6ed6b0133804271/f21e7/19.png 360w,
+/static/edf89580d5b9e17ac6ed6b0133804271/37523/19.png 720w,
+/static/edf89580d5b9e17ac6ed6b0133804271/302a4/19.png 1080w,
+/static/edf89580d5b9e17ac6ed6b0133804271/75a80/19.png 1134w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>L1 Regularization → 엔트로피 감소를 도와주지만 적절한 rate-distortion trade off을 위해서는 architecture의 size를 수정해야하는 문제랑 같이 생각해야한다.</p>
+<h3 id="7-post-quantization-optimization" style="position:relative;"><a href="#7-post-quantization-optimization" aria-label="7 post quantization optimization permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>7. Post-Quantization Optimization</h3>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 72.77777777777777%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACTElEQVQ4y4VTDW+cMAy9///PpqmbNm1r1QrujlsLJZ9AvgiEN9nXo5WmaZEskxA/Pz87BwDIOSOE8F+LMbJpreG9v56lGXOOvF+WBYdt2yCERHi7nFL6y5PN88wAbdtCK4WUZuQlw40Kl5/fINoLYgo4EENrLbNc15WNMpVS2NOe1jSNkEIwEFeVHHR7wUtdwYoO0ygQIwFuG+ww7MEE9NFTBdYaaGMYaM0R9vU32rqCES3meaRTTkSVMEOlFDO8gd7Ykqd/zgeUkjGIZ7xUNWTXIgSNtSQseUFZy67x4XK5QErFYDfAqy9Q2iAGh2B7vFRPUJ1ECAPK5q/sC3Z5bnofqqpiwJ0hA6+wRkJ1Dfqmhnh+RQjUBIMQLGJIe5cJhAB3hk+Pj3vJZGXbMLgJx7tPaJ8qxLhiwwbve8QoWU8icT6fUdU1tNJM5JbgMAzDe5dLQYoOxx93UJ3GugGlkOAKbhqhpIcxlgGPxyOD1nWN5tyg7/srQ2qKMYbnrACovnzG80PFHV1yRkrEIMKHDGELlDI4nU48jzS/Xdft+hNLHmwpJZdq+mccfz0wMxI9pRHzPKAUwIcJ1vWQUuB8bjCOIz4u0pJLvg32Wlacvn5HnDzP3rouXCoJTsly8ICVsEqxdjQdPgQGvjFkQAqmt0mgoldv75repoFzFvOckZcF0TssQcMazWBt13EcfTvn4bx7Z+icAzVnGCxnJHDqprUDlNaskxACXdez3qQV3aE4uj9N01W2Uq4Myf61KLhpGoi+x/39Ayem9a+YP4v8g3Hi57AxAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="21"
+        title="21"
+        src="/static/dd32bba1a35c4afb6924576a1b1e0d64/37523/21.png"
+        srcset="/static/dd32bba1a35c4afb6924576a1b1e0d64/e9ff0/21.png 180w,
+/static/dd32bba1a35c4afb6924576a1b1e0d64/f21e7/21.png 360w,
+/static/dd32bba1a35c4afb6924576a1b1e0d64/37523/21.png 720w,
+/static/dd32bba1a35c4afb6924576a1b1e0d64/302a4/21.png 1080w,
+/static/dd32bba1a35c4afb6924576a1b1e0d64/8cdda/21.png 1168w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
+<p>AdaRound 와 retraining이 도입되면서 성능이 더 나아짐</p>
+<p>bitrate range 전체에서 가장 좋은 방법은 method들을 결합해서 함께 적용시키는 것이다.</p>
+<h1 id="conclusion" style="position:relative;"><a href="#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h1>
+<ul>
+<li>
+<p>Performance gains can be particularly attributed to a careful ablation of the INR architecture and the introduction of meta-learned initializations.</p>
+<p>(the first that allows INRs to be competitive with traditional codecs over a large portion of bitrates)</p>
+</li>
+<li>
+<p>meta-learning approach</p>
+</li>
+<li>
+<p>observed a reduction in bitrate at the same reconstruction quality</p>
+</li>
+<li>
+<p>use a lower quantization bitwidth while maintaining a similar PSNR</p>
+<ul>
+<li>weight updates are more compressible than the full model weights</li>
+<li>more prominent on the CelebA dataset, where the initializations are trained on an image distribution that is more similar to the test set (less variation than natural scene)</li>
+</ul>
+</li>
+<li>
+<p>our compression algorithm adaptive to a certain distribution by including <em>apriori</em> knowledge into the initialization</p>
+</li>
+<li>
+<p>the introduction of meta-learned initializations to INR-based compression</p>
+<ul>
+<li>show that our meta-learned approach can reduce training time by up to 90% while achieving the same performance as the basic approach</li>
+</ul>
+</li>
+<li>
+<p>highlight the importance of the architecture and input encodings for INR-based compression (ReLU vs. sine)</p>
+</li>
+<li>
+<p><code class="language-text">clear limitation → the scaling of INRs to higher bitrates (show less competitive performance at higher bitrates)</code></p>
+</li>
+</ul>
+<div class="table-of-contents">
+<ul>
+<li>
+<p><a href="#introduction">Introduction</a></p>
+</li>
+<li>
+<p><a href="#related-work">Related Work</a></p>
+</li>
+<li>
+<p><a href="#method"><strong>Method</strong></a></p>
+<ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#image-compression-using-inrs">Image Compression using INRs</a></li>
+<li><a href="#1-based-on-randomly-initialized-inrs"><strong>1) based on randomly initialized INRs</strong></a></li>
+<li><a href="#2-meta-learned-initializations-for-compressing-inrs">2) Meta-learned Initializations for Compressing INRs</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#experiments">Experiments</a></p>
+<ul>
+<li><a href="#datasets">Datasets</a></li>
+<li><a href="#metrics">Metrics</a></li>
+<li><a href="#baseline"><strong>Baseline</strong></a></li>
+<li><a href="#optimization-and-hyperparameters">Optimization and Hyperparameters</a></li>
+<li><a href="#1-comparison-with-state-of-the-art">1. Comparison with State-of-the-Art</a></li>
+<li><a href="#2-visual-comparison-to-jpeg-and-jpeg2000">2. Visual Comparison to JPEG and JPEG2000</a></li>
+<li><a href="#3-convergence-speed">3. Convergence Speed</a></li>
+<li><a href="#4-number-of-layers-and-hidden-dimension">4. Number of Layers and Hidden Dimension</a></li>
+<li><a href="#5-choosing-input-encoding-and-activation">5. Choosing Input Encoding and Activation</a></li>
+<li><a href="#6-impact-of-l1-regularization">6. Impact of L1 Regularization</a></li>
+<li><a href="#7-post-quantization-optimization">7. Post-Quantization Optimization</a></li>
+</ul>
+</li>
+</ul>
+</div></div></div><div class="post-navigator"><div class="post-navigator-card-wrapper"><a class="post-card prev" href="/BR_knowabout/"><div class="direction">이전 글</div><div class="title">대학원생 때 알면 좋을 것들에 대하여</div></a></div><div class="post-navigator-card-wrapper"><a class="post-card next" href="/InformationTheory/"><div class="direction">다음 글</div><div class="title">Information Theory</div></a></div></div><div class="utterances"></div></main><footer class="page-footer-wrapper"><p class="page-footer">© <!-- -->2025<!-- --> <a href="https://github.com/hagyeonglee">Hagyeong Lee</a> powered by<a href="https://github.com/hagyeonglee/hagyeonglee.github.io"> hagyeonglee</a></p></footer><div class="dark-mode-button-wrapper"><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium dark-mode-button css-1yxmbwk" tabindex="0" type="button"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge dark-mode-icon css-6flbmm" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DarkModeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path></svg></button></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/INR_ImageCompression/";window.___webpackCompilationHash="a6b42c99c73b0b38ea7c";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-effafa1c381d906d8440.js"],"app":["/app-9c634852815d491075e3.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-89dfe929161a9fad1a62.js"],"component---src-pages-404-js":["/component---src-pages-404-js-6f019fd8cde7765cc7d4.js"],"component---src-pages-about-js":["/component---src-pages-about-js-f60dacad0bf9b7abf160.js"],"component---src-pages-index-js":["/component---src-pages-index-js-8564b620cfd9fc320607.js"],"component---src-templates-blog-template-js":["/component---src-templates-blog-template-js-7993e9e1e6bef8f7eb7d.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-052ed5e4b545fd65f0fd.js"]};/*]]>*/</script><script src="/polyfill-effafa1c381d906d8440.js" nomodule=""></script><script src="/app-9c634852815d491075e3.js" async=""></script><script src="/framework-3e1ee80b26dc7ff515c1.js" async=""></script><script src="/webpack-runtime-3a8d1fa50840a8a7a92f.js" async=""></script></body></html>
