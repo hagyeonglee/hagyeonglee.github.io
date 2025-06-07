@@ -20,6 +20,8 @@ function IconButtonBar({ links = {} }) {
     switch (icon) {
       case 'post':
         return <DescriptionIcon {...props} />;
+      case 'image':
+        return <AttachFileIcon {...props} />;
       case 'demo':
         return <PlayIcon {...props} />;
       case 'github':

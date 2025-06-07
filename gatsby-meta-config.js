@@ -37,7 +37,8 @@ module.exports = {
         activity: '',
         links: {
           github: '',
-          post: '',
+          post: '', 
+          image: '',
           googlePlay: '',
           appStore: '',
           demo: '',
@@ -60,10 +61,21 @@ module.exports = {
       //   },
       // },
       {
+        date: '2025. 04. 01 ~',
+        activity: 'Started new job as engineer in Samsung AI Center',
+        links: {
+          post: 'https://drive.google.com/file/d/1pMRIUmogQJ-eWaN-u_ggSiYpbaS9Uvzw/view?usp=sharing',
+          image: 'https://drive.google.com/file/d/1zlw-1E5VOZbq3MrgF8wDwdsyqiol-2JS/view?usp=sharing',
+          github: '',
+          demo: '',
+          file: '',
+        },
+      },
+      {
         date: '2025. 02. 07 ',
         activity: 'Awarded Best Thesis for Master Degree in POSTECH EE 2024🏅',
         links: {
-          post: 'https://flic.kr/p/2qKnBy7',
+          post: 'https://www.flickr.com/photos/138881676@N08/54312081258/in/photostream/lightbox/',//'https://flic.kr/p/2qKnBy7',
           github: '',
           demo: '',
           file: '',
@@ -83,7 +95,8 @@ module.exports = {
         date: '2022. 09 ~ 2024.08',
         activity: 'M.S. Student @POSTECH EffL Lab.',
         links: {
-          post: 'https://effl.postech.ac.kr/',
+          post: 'https://effl.postech.ac.kr/', 
+          image: 'https://drive.google.com/file/d/1Uhz5gSw3qLm5lXvl-HyDLw5SCeqD4igE/view?usp=sharing',
           github: 'https://github.com/effl-lab',
           demo: '',
           file: '',
@@ -145,8 +158,8 @@ module.exports = {
         links: {
           post: 'http://graphics.ewha.ac.kr/',
           github: '',
-          demo: '',
-          file: 'https://drive.google.com/file/d/10V59AvDk_J3MDY6hd3ym8mXNjp4LN2d6/view?usp=sharing',
+          demo: 'https://drive.google.com/file/d/10V59AvDk_J3MDY6hd3ym8mXNjp4LN2d6/view?usp=sharing',
+          file: '',
         },
       },
       {

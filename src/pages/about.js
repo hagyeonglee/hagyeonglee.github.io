@@ -52,6 +52,7 @@ export const pageQuery = graphql`
             activity
             links {
               post
+              image
               github
               demo
               googlePlay
